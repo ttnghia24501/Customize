@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="mp_reward_spent" instance="Mageplaza\RewardPoints\Model\Total\Quote\Spending" sort_order="600">
+                <renderer name="adminhtml" instance="Mageplaza\RewardPoints\Block\Adminhtml\Order\Create\Totals\Spending"/>
+            </item>
+            <item name="mp_reward_earn" instance="Mageplaza\RewardPoints\Model\Total\Quote\Earning" sort_order="1000">
+                <renderer name="adminhtml" instance="Mageplaza\RewardPoints\Block\Adminhtml\Order\Create\Totals\Earning"/>
+            </item>
+        </group>
+    </section>
+    <section name="order_invoice">
+        <group name="totals">
+            <item name="mpreward_invoice" instance="Mageplaza\RewardPoints\Model\Total\Invoice\Reward" sort_order="450"/>
+        </group>
+    </section>
+    <section name="order_creditmemo">
+        <group name="totals">
+            <item name="mpreward_creditmemo" instance="Mageplaza\RewardPoints\Model\Total\Creditmemo\Reward" sort_order="550"/>
+        </group>
+    </section>
+</config>

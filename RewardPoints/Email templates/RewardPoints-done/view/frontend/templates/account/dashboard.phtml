@@ -1,0 +1,62 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/** @var \Mageplaza\RewardPoints\Block\Account\Dashboard $block */
+?>
+<div class="block-reward-dashboard">
+    <div class="block reward-balance row-mp">
+        <div class="col-mp mp-4 mp-sm-6 mp-xs-12 item-balance">
+            <div class="box-balance available">
+                <span><strong><?= /** @noEscape */
+                        $block->getAvailableBalance() ?></strong></span>
+            </div>
+            <div class="label">
+                <span><?= $block->escapeHtml(__('Available Balance')) ?></span>
+            </div>
+        </div>
+        <div class="col-mp mp-4 mp-sm-6 mp-xs-12 item-balance">
+            <div class="box-balance earned">
+                <span><strong><?= /** @noEscape */
+                        $block->getTotalEarnedPoints() ?></strong></span>
+            </div>
+            <div class="label">
+                <span><?= $block->escapeHtml(__('Total Earned')) ?></span>
+            </div>
+        </div>
+        <div class="col-mp mp-4 mp-sm-6 mp-xs-12 item-balance">
+            <div class="box-balance paid">
+                <span><strong><?= /** @noEscape */
+                        $block->getTotalSpentPoints() ?></strong></span>
+            </div>
+            <div class="label">
+                <span><?= $block->escapeHtml(__('Total Spent')) ?></span>
+            </div>
+        </div>
+        <div class="mp-clear"></div>
+    </div>
+    <?php if (!$block->isRewardAccountActive()) : ?>
+        <div class="message info empty">
+            <span><?= $block->escapeHtml(__('Your Account is currently inactive.')) ?></span>
+        </div>
+    <?php endif ?>
+
+    <?= /** @noEscape */ $block->getChildHtml() ?>
+</div>

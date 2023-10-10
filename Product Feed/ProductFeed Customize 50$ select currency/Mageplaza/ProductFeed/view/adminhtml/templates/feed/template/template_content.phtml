@@ -1,0 +1,115 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Magento\Backend\Block\Widget\Form\Renderer\Fieldset\Element;
+use Magento\Eav\Model\Entity\Attribute;
+
+?>
+<?php
+/* @var $block Element */
+$element            = $block->getElement();
+$note               = $element->getNote() ? '<div class="note" style="text-align: right">' . $element->getNote() . '</div>' : '';
+$elementBeforeLabel = $element->getExtType() === 'checkbox' || $element->getExtType() === 'radio';
+$addOn              = $element->getBeforeElementHtml() || $element->getAfterElementHtml();
+$fieldId            = $element->getHtmlContainerId() ? ' id="' . $element->getHtmlContainerId() . '"' : '';
+$fieldClass         = "admin__field field field-{$element->getId()} {$element->getCssClass()}";
+$fieldClass         .= $elementBeforeLabel ? ' choice' : '';
+$fieldClass         .= $addOn ? ' with-addon' : '';
+$fieldClass         .= $element->getRequired() ? ' _required' : '';
+$fieldClass         .= $note ? ' with-note' : '';
+$fieldAttributes    = $fieldId . ' class="' . $fieldClass . '" '
+    . $block->getUiId('form-field', $element->getId());
+$modifiersData      = $block->getModifier() ? \Mageplaza\ProductFeed\Helper\Data::jsonEncode($block->getModifier()) : '{}';
+$fieldsMap          = $block->getFieldsMap() ?: '{}';
+?>
+
+<?php if (!$element->getNoDisplay()) : ?>
+    <?php if ($element->getType() === 'hidden') : ?>
+        <?= $element->getElementHtml() ?>
+    <?php else : ?>
+        <div<?= /* @noEscape */ $fieldAttributes ?>>
+            <?php if ($elementBeforeLabel) : ?>
+                <?= $element->getElementHtml() ?>
+                <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+                <?= /* @noEscape */ $note ?>
+            <?php else : ?>
+                <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+                <div class="admin__field-control control">
+                    <a id="insert-variable" class="btn"><?= $block->escapeHtml(__('Insert Variable')) ?></a>
+                    <?= $addOn ? '<div class="addon">' . $element->getElementHtml() . '</div>' : $element->getElementHtml() ?>
+                    <?= $block->getHintHtml() ?>
+                    <?= /* @noEscape */ $note ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<div id="insert-variable-popup" class="admin__scope-old">
+    <div class="accordion">
+        <div class="entry-edit form-inline">
+            <?php foreach ($block->getEavAttrCollection() as $id => $groupAttr) : ?>
+                <div class="section-config">
+                    <div class="entry-edit-head admin__collapsible-block">
+                        <span id="pf_variable_<?= $block->escapeHtmlAttr($id) ?>-link" class="entry-edit-head-link"></span>
+                        <a id="pf_variable_<?= $block->escapeHtmlAttr($id) ?>-head" href="#pf_variable_<?= $block->escapeHtmlAttr($id) ?>-link" onclick="Fieldset.toggleCollapse('pf_variable_<?= $block->escapeHtmlAttr($id) ?>'); return false;"><?= $block->escapeHtml($groupAttr['label']) ?></a>
+                    </div>
+                    <input id="smtp_provider_<?= $block->escapeHtmlAttr($id) ?>-state" type="hidden">
+                    <fieldset class="config admin__collapsible-block admin__scope-old" id="pf_variable_<?= $block->escapeHtmlAttr($id) ?>">
+                        <?php foreach ($groupAttr['values'] as $attr) : ?>
+                            <?php /** @var Attribute $attr */ ?>
+                            <div class="attr-code" id="<?= $block->escapeHtmlAttr($attr->getAttributeId()) ?>" code="<?= $block->escapeHtmlAttr($attr->getAttributeCode()) ?>">
+                                <div class="row">
+                                    <label class="attr-code-label"><?= $block->escapeHtml($attr->getDefaultFrontendLabel() . " ({$attr->getAttributeCode()})") ?></label>
+                                    <button class="insert"><?= $block->escapeHtml(__('Add')) ?></button>
+                                    <button class="add-modifier"><?= $block->escapeHtml(__('Add Filter')) ?></button>
+                                    <label class="liquid-variable">{{ <?= /* @noEscape */ 'product.' . $attr->getAttributeCode() ?> }}</label>
+                                </div>
+                                <div class="row-modifier data-table">
+                                    <div class="modifier-group" code="<?= $block->escapeHtmlAttr($attr->getAttributeCode()) ?>"></div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </fieldset>
+                </div>
+                <script type="text/javascript">//<![CDATA[
+                    require(['prototype'], function () {
+                        Fieldset.applyCollapse('pf_variable_<?= /* @noEscape */ $id ?>');
+                    });
+                    //]]>
+                </script>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Mageplaza_ProductFeed/js/feed/initTemplateTab":{
+                "url": "<?= /* @noEscape */ $block->getUrl('mpproductfeed/managefeeds/loadtemplate', ['form_key' => $block->getFormKey()]) ?>",
+                "testConnectionUrl" : "<?= /* @noEscape */ $block->getUrl('mpproductfeed/managefeeds/testconnection', ['form_key' => $block->getFormKey()]) ?>",
+                "fieldsMap": <?= /* @noEscape */ $fieldsMap ?>,
+                "modifiersData": <?= /* @noEscape */ $modifiersData ?>,
+                "defaultTemplate": <?= /* @noEscape */ $block->getDefaultTemplate() ?>,
+                "password": "<?= /* @noEscape */ $block->getDeliveryPass() ?>"
+            }
+        }
+    }
+</script>

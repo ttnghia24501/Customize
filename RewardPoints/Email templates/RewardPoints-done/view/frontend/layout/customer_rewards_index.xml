@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="rewards_account"/>
+    <head>
+        <css src="Mageplaza_Core::css/grid-mageplaza.css"/>
+    </head>
+    <body>
+        <referenceBlock name ="sidebar.main.reward_nav">
+            <arguments>
+                <argument name="block_title" translate="true" xsi:type="string">Reward Dashboard</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Mageplaza\RewardPoints\Block\Account\Dashboard" name="reward_dashboard" template="Mageplaza_RewardPoints::account/dashboard.phtml" cacheable="false">
+                <block class="Mageplaza\RewardPoints\Block\Account\Dashboard\Exchange" name="reward_dashboard_exchange" template="Mageplaza_RewardPoints::account/dashboard/exchange.phtml"/>
+                <block class="Mageplaza\RewardPoints\Block\Account\Dashboard\Transaction" name="reward_dashboard_transaction" template="Mageplaza_RewardPoints::account/dashboard/transaction.phtml"/>
+                <block class="Mageplaza\RewardPoints\Block\Account\Dashboard\Setting" name="mpreward_account_setting1" template="Mageplaza_RewardPoints::account/dashboard/setting.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

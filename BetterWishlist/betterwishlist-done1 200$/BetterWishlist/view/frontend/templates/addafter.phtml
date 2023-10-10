@@ -1,0 +1,49 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/**
+ * @var \Magento\Wishlist\Model\Item | \Mageplaza\BetterWishlist\Model\WishlistItem $item
+ */
+$item    = $block->getItem();
+$product = $item->getProduct();
+?>
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <?php $block->getChildBlock('mpwishlist.item.image')->setItem($item); ?>
+        <?= $block->getChildHtml('mpwishlist.item.image') ?>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="title">
+            <div><strong><?= $block->escapeHtml($product->getName()) ?></strong></div>
+            <div>has been added to your <?= $block->escapeHtml($item->getCategoryName()) ?></div>
+        </div>
+        <div class="price" style="margin: 20px 0">
+            <span><?= $block->escapeHtml(__('Price: ')) ?></span>
+            <?php $block->getChildBlock('mpwishlist.item.price')->setItem($item); ?>
+            <?= $block->getChildHtml('mpwishlist.item.price') ?>
+        </div>
+        <div class="qty">
+            <span><?= $block->escapeHtml(__('Qty: ')) ?><?= $block->escapeHtml($item->getQty()) ?></span>
+        </div>
+    </div>
+</div>
+
+

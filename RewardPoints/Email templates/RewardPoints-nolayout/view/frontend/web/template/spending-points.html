@@ -1,0 +1,72 @@
+<!--
+/**
+* Mageplaza
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the mageplaza.com license that is
+* available through the world-wide-web at this URL:
+* https://www.mageplaza.com/LICENSE.txt
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade this extension to newer
+* version in the future.
+*
+* @category    Mageplaza
+* @package     Mageplaza_RewardPoints
+* @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+* @license     https://www.mageplaza.com/LICENSE.txt
+*/
+-->
+<!-- ko if: canSpendPoints() -->
+<div class="messages" id="mp-reward-message"></div>
+<div class="payment-option _collapsible opc-payment-additional reward" data-bind="mageInit: getCollapsible()">
+    <div class="payment-option-title field choice" data-role="title"
+         data-bind="css: {'payment-cart-title': isCheckoutCart}">
+        <span class="action action-toggle" id="block-discount-heading" role="heading" aria-level="2">
+            <!-- ko i18n: 'Spend Your Points'--><!-- /ko -->
+        </span>
+    </div>
+    <div class="payment-option-content reward-points-payment-content"
+         data-bind="css: {'payment-checkout-content': !isCheckoutCart}" data-role="content">
+        <div class="reward-box">
+            <div class="points">
+                <span data-bind="html: balanceFormatted"></span>
+            </div>
+            <div class="reward-rule-select">
+                <div class="label">
+                    <strong data-bind="i18n: 'Choose how many points to spend'"></strong>
+                </div>
+                <div class="content">
+                    <!-- ko if: rules().length == 1 -->
+                    <span data-bind="html: selectedRule().label"></span>
+                    <!-- /ko -->
+
+                    <!-- ko if: rules().length > 1 -->
+                    <select name="reward-rules" id="reward-spending-rules"
+                            data-bind="options: rules, optionsText: 'label', value: selectedRule, event:{change: changeRule}"></select>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="reward-spending-slider" afterRender="initSlider()" data-bind="visible : isDisplaySlider">
+                <div class="range-slider">
+                    <input type="text" class="reward-range-slider" value=""/>
+                </div>
+                <div class="extra-controls" style="text-align: left">
+                    <span data-bind="i18n: 'You will spend'"></span>
+                    <span>
+                       <input type="text" class="mp-spent"
+                              data-bind="value: pointSpent, event:{blur: changePointSpent}"/>
+                    </span>
+                </div>
+                <div class="field choice" style="text-align: left;">
+                    <input type="checkbox" name="max-point" id="reward-use-max-point"
+                           data-bind="checked: useMaxPoint,event:{change: changeMaxPoint}"/>
+                    <label data-bind="attr: {for: 'reward-use-max-point'}, i18n: 'Maximize my discount with points'"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

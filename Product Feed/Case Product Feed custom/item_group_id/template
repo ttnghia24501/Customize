@@ -1,0 +1,14 @@
+Please replace the current one with the attachment in the following path:
+Mageplaza/ProductFeed/Helper/Data.php
+With XML template, add the code below to the template: 
+{% if product.item_group_id %}
+<g:item_group_id><![CDATA[{{ product.item_group_id }}]]></g:item_group_id>
+{% endif %}
+https://i.imgur.com/1m7cuZm.png
+With CSV template, add new field with type is Pattern and paste the code below to the value:
+{% if product.item_group_id %} {{ product.item_group_id }} {% endif %}
+https://imgur.com/a/1fZPMfq
+We can remove all configurable products from the feeds by setting up the Product filter as follows. Please note to select entire products on all pages:
+https://i.imgur.com/Jqs6BlW.png
+​If you have any question, please contact me, i'm here to support you.
+Thanks.

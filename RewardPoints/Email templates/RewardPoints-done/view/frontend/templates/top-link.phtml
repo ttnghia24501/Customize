@@ -1,0 +1,47 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/** @var \Mageplaza\RewardPoints\Helper\Data $helper */
+$helper = $this->helper(\Mageplaza\RewardPoints\Helper\Data::class);
+?>
+<?php if ($helper->isDisplayPointOnTopLink()) : ?>
+    <li class="nav item" id="customer-toplink" role="link" data-bind="scope: 'customer_toplink'">
+        <a href="<?= /** @noEscape */ $this->getUrl('customer/rewards/') ?>">
+            <?= /** @noEscape */
+            $helper->getPointHelper()->getIconHtml() ?>
+            <span data-bind="text: customer().point_balance"></span>
+        </a>
+        <script type="text/x-magento-init">
+        {
+            "#customer-toplink": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer_toplink": {
+                            "component": "Mageplaza_RewardPoints/js/view/customer-toplink"
+                        }
+                    }
+                }
+            }
+        }
+
+        </script>
+    </li>
+<?php endif; ?>

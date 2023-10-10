@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mageplaza_ProductFeed::product_feeds" title="Product Feeds" module="Mageplaza_ProductFeed" sortOrder="45" resource="Mageplaza_ProductFeed::product_feeds" parent="Magento_Catalog::catalog"/>
+        <add id="Mageplaza_ProductFeed::manage_feeds" title="Manage Feeds" module="Mageplaza_ProductFeed" sortOrder="20" action="mpproductfeed/managefeeds" resource="Mageplaza_ProductFeed::manage_feeds" parent="Mageplaza_ProductFeed::product_feeds"/>
+        <add id="Mageplaza_ProductFeed::logs" title="Logs" module="Mageplaza_ProductFeed" sortOrder="20" action="mpproductfeed/logs" resource="Mageplaza_ProductFeed::logs" parent="Mageplaza_ProductFeed::product_feeds"/>
+        <add id="Mageplaza_ProductFeed::configuration" title="Configuration" module="Mageplaza_ProductFeed" sortOrder="1000" action="adminhtml/system_config/edit/section/product_feed" resource="Mageplaza_ProductFeed::configuration" parent="Mageplaza_ProductFeed::product_feeds"/>
+    </menu>
+</config>

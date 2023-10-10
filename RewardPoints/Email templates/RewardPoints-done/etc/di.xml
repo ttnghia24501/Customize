@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="mp_reward_create_account" type="Mageplaza\RewardPoints\Plugin\CreateRewardAccount"/>
+    </type>
+    <preference for="Mageplaza\RewardPoints\Api\SpendingManagementInterface" type="Mageplaza\RewardPoints\Model\Api\SpendingManagement"/>
+    <type name="Mageplaza\RewardPoints\Model\ActionFactory">
+        <arguments>
+            <argument name="map" xsi:type="array">
+                <item name="admin" xsi:type="string">Mageplaza\RewardPoints\Model\Action\Admin</item>
+                <item name="earning_order" xsi:type="string">Mageplaza\RewardPoints\Model\Action\Earning\Order</item>
+                <item name="earning_refund" xsi:type="string">Mageplaza\RewardPoints\Model\Action\Earning\Refund</item>
+                <item name="spending_order" xsi:type="string">Mageplaza\RewardPoints\Model\Action\Spending\Order</item>
+                <item name="spending_refund" xsi:type="string">Mageplaza\RewardPoints\Model\Action\Spending\Refund</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mageplaza\RewardPoints\Helper\Point">
+        <arguments>
+            <argument name="mediaHelper" xsi:type="object">Mageplaza\Core\Helper\Media\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Api\CartTotalRepositoryInterface">
+        <plugin name="mpreward_point_add_quote_data" type="Mageplaza\RewardPoints\Plugin\Quote\CartTotalRepository"/>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpreward_earning_listing_data_source" xsi:type="string">Mageplaza\RewardPoints\Model\ResourceModel\Rate\Earning\Collection</item>
+                <item name="mpreward_spending_listing_data_source" xsi:type="string">Mageplaza\RewardPoints\Model\ResourceModel\Rate\Spending\Collection</item>
+                <item name="mpreward_transaction_listing_data_source" xsi:type="string">Mageplaza\RewardPoints\Model\ResourceModel\Transaction\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mageplaza\RewardPoints\Model\ResourceModel\Rate\Earning\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageplaza_reward_rate</argument>
+            <argument name="resourceModel" xsi:type="string">Mageplaza\RewardPoints\Model\ResourceModel\Rate</argument>
+        </arguments>
+    </type>
+    <type name="Mageplaza\RewardPoints\Model\ResourceModel\Rate\Spending\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageplaza_reward_rate</argument>
+            <argument name="resourceModel" xsi:type="string">Mageplaza\RewardPoints\Model\ResourceModel\Rate</argument>
+        </arguments>
+    </type>
+    <!--Sync the sales_order table and sales_order_grid-->
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="mp_reward_earn" xsi:type="string">sales_order.mp_reward_earn</item>
+                <item name="mp_reward_spent" xsi:type="string">sales_order.mp_reward_spent</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!--Add the is_active column to the Customer Grid-->
+    <type name="Magento\Customer\Model\ResourceModel\Grid\Collection">
+        <plugin name="mp_reward_add_to_customer_grid" type="Mageplaza\RewardPoints\Plugin\Model\ResourceModel\Grid\Collection" sortOrder="100"/>
+    </type>
+
+    <preference for="Mageplaza\RewardPoints\Api\Data\TransactionInterface" type="Mageplaza\RewardPoints\Model\Transaction"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\TransactionSearchResultInterface" type="Mageplaza\RewardPoints\Model\ResourceModel\Transaction\Collection"/>
+    <preference for="Mageplaza\RewardPoints\Api\TransactionRepositoryInterface" type="Mageplaza\RewardPoints\Model\TransactionRepository"/>
+
+    <preference for="Mageplaza\RewardPoints\Api\Data\RewardCustomerInterface" type="Mageplaza\RewardPoints\Model\Account"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\RewardCustomerSearchResultInterface" type="Mageplaza\RewardPoints\Model\ResourceModel\Account\Collection"/>
+    <preference for="Mageplaza\RewardPoints\Api\RewardCustomerRepositoryInterface" type="Mageplaza\RewardPoints\Model\RewardCustomerRepository"/>
+
+    <preference for="Mageplaza\RewardPoints\Api\Data\RewardRateInterface" type="Mageplaza\RewardPoints\Model\Rate"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\RewardRateSearchResultInterface" type="Mageplaza\RewardPoints\Model\ResourceModel\Rate\Collection"/>
+    <preference for="Mageplaza\RewardPoints\Api\RewardRateRepositoryInterface" type="Mageplaza\RewardPoints\Model\RewardRateRepository"/>
+
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="mp_reward_order" type="Mageplaza\RewardPoints\Plugin\Api\OrderGet"/>
+    </type>
+    <type name="Magento\Sales\Api\InvoiceRepositoryInterface">
+        <plugin name="mp_reward_invoice" type="Mageplaza\RewardPoints\Plugin\Api\InvoiceGet"/>
+    </type>
+    <type name="Magento\Sales\Api\CreditmemoRepositoryInterface">
+        <plugin name="mp_reward_creditmeo" type="Mageplaza\RewardPoints\Plugin\Api\CreditmemoGet"/>
+    </type>
+    <preference for="Mageplaza\RewardPoints\Api\Data\OrderInterface" type="Mageplaza\RewardPoints\Model\Order"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\OrderItemInterface" type="Mageplaza\RewardPoints\Model\OrderItem"/>
+
+    <preference for="Mageplaza\RewardPoints\Api\Data\InvoiceInterface" type="Mageplaza\RewardPoints\Model\Invoice"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\InvoiceItemInterface" type="Mageplaza\RewardPoints\Model\InvoiceItem"/>
+
+    <preference for="Mageplaza\RewardPoints\Api\Data\CreditmemoInterface" type="Mageplaza\RewardPoints\Model\Creditmemo"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\CreditmemoItemInterface" type="Mageplaza\RewardPoints\Model\CreditmemoItem"/>
+
+    <preference for="Mageplaza\RewardPoints\Api\ConfigRepositoryInterface" type="Mageplaza\RewardPoints\Model\ConfigRepository"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\ConfigInterface" type="Mageplaza\RewardPoints\Model\Config"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\Config\GeneralInterface" type="Mageplaza\RewardPoints\Model\Config\General"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\Config\EarningInterface" type="Mageplaza\RewardPoints\Model\Config\Earning"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\Config\SpendingInterface" type="Mageplaza\RewardPoints\Model\Config\Spending"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\Config\DisplayInterface" type="Mageplaza\RewardPoints\Model\Config\Display"/>
+    <preference for="Mageplaza\RewardPoints\Api\Data\Config\SaleEarningInterface" type="Mageplaza\RewardPoints\Model\Config\SaleEarning"/>
+</config>

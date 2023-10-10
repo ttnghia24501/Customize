@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mageplaza_reward_rate" resource="default" engine="innodb" comment="Mageplaza Reward Rate">
+        <column xsi:type="int" name="rate_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Template Id"/>
+        <column xsi:type="varchar" name="website_ids" nullable="false" length="255" comment="Website Ids"/>
+        <column xsi:type="varchar" name="customer_group_ids" nullable="false" length="64" comment="Customer Group Ids"/>
+        <column xsi:type="smallint" name="direction" padding="5" unsigned="true" nullable="true" identity="false" default="1" comment="Direction"/>
+        <column xsi:type="int" name="points" padding="11" unsigned="false" nullable="true" identity="false" comment="Points"/>
+        <column xsi:type="decimal" name="money" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="Money"/>
+        <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="true" identity="false" comment="Priority"/>
+        <column xsi:type="int" name="min_point" padding="11" unsigned="false" nullable="true" identity="false" default="0" comment="Min Point"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rate_id"/>
+        </constraint>
+    </table>
+    <table name="mageplaza_reward_customer" resource="default" engine="innodb" comment="Mageplaza Reward Customer">
+        <column xsi:type="int" name="reward_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Reward Id"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Customer Id"/>
+        <column xsi:type="int" name="point_balance" padding="11" unsigned="false" nullable="false" identity="false" comment="Point Balance"/>
+        <column xsi:type="int" name="point_spent" padding="11" unsigned="false" nullable="false" identity="false" comment="Point spent"/>
+        <column xsi:type="boolean" name="notification_update" nullable="false" comment="Notification Update"/>
+        <column xsi:type="boolean" name="notification_expire" nullable="false" comment="Notification Expire"/>
+        <column xsi:type="boolean" name="is_active" nullable="false" default="true" comment="Customer Reward Enable"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="reward_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MAGEPLAZA_REWARD_CUSTOMER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="mageplaza_reward_customer" column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+    <table name="mageplaza_reward_transaction" resource="default" engine="innodb" comment="Mageplaza Reward Transaction">
+        <column xsi:type="int" name="transaction_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Reward Id"/>
+        <column xsi:type="int" name="reward_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Reward Id"/>
+        <column xsi:type="int" name="customer_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Customer Id"/>
+        <column xsi:type="varchar" name="action_code" nullable="false" length="255" comment="Action Code"/>
+        <column xsi:type="smallint" name="action_type" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Action Type"/>
+        <column xsi:type="smallint" name="store_id" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Store Id"/>
+        <column xsi:type="int" name="point_amount" padding="11" unsigned="false" nullable="false" identity="false" comment="Point Balance"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="32" comment="Status"/>
+        <column xsi:type="int" name="order_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Order Id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="expiration_date" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Expiration Date"/>
+        <column xsi:type="int" name="expire_email_sent" padding="11" unsigned="false" nullable="false" identity="false" comment="Expire Email Sent"/>
+        <column xsi:type="varchar" name="extra_content" nullable="true" length="255" comment="Additional Data"/>
+        <column xsi:type="int" name="point_remaining" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Remaining earned points (order earning point transaction)"/>
+        <column xsi:type="int" name="point_used" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Point already used (expired transaction)"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="transaction_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_5CB8BA1EB9580D5BC758016B3EE54969" table="mageplaza_reward_transaction" column="reward_id" referenceTable="mageplaza_reward_customer" referenceColumn="reward_id" onDelete="CASCADE"/>
+    </table>
+    <table name="sales_order_grid" resource="default">
+        <column xsi:type="decimal" name="mp_reward_earn" scale="0" precision="10" unsigned="false" nullable="true" comment="MP reward earned"/>
+        <column xsi:type="decimal" name="mp_reward_spent" scale="0" precision="10" unsigned="false" nullable="true" comment="MP reward spent"/>
+    </table>
+    <table name="customer_grid_flat" resource="default">
+        <column xsi:type="decimal" name="mp_point_balance" scale="0" precision="10" unsigned="false" nullable="true" comment="MP point balance"/>
+    </table>
+    <table name="sales_order" resource="default">
+        <column xsi:type="int" name="mp_reward_earn" comment="Mp Reward Earned"/>
+        <column xsi:type="int" name="mp_reward_spent" comment="Mp Reward Spent"/>
+        <column xsi:type="decimal" name="mp_reward_discount" scale="4" precision="12" comment="Mp Reward Discount"/>
+        <column xsi:type="decimal" name="mp_reward_base_discount" scale="4" precision="12" comment="Mp Reward Base Discount"/>
+        <column xsi:type="int" name="mp_reward_shipping_earn" comment="Mp Reward Shipping Earned"/>
+        <column xsi:type="int" name="mp_reward_shipping_spent" comment="Mp Reward Shipping Spent"/>
+        <column xsi:type="decimal" name="mp_reward_shipping_discount" scale="4" precision="12" comment="Mp Reward Shipping Discount"/>
+        <column xsi:type="decimal" name="mp_reward_shipping_base_discount" scale="4" precision="12" comment="Mp Reward Shipping Base Discount"/>
+        <column xsi:type="int" name="mp_reward_earn_after_invoice" comment="Mp Reward Earn After Invoice"/>
+    </table>
+    <table name="sales_order_item" resource="default">
+        <column xsi:type="int" name="mp_reward_earn" comment="Mp Reward Earned"/>
+        <column xsi:type="int" name="mp_reward_spent" comment="Mp Reward Spent"/>
+        <column xsi:type="decimal" name="mp_reward_discount" scale="4" precision="12" comment="Mp Reward Discount"/>
+        <column xsi:type="decimal" name="mp_reward_base_discount" scale="4" precision="12" comment="Mp Reward Base Discount"/>
+    </table>
+    <table name="sales_invoice" resource="default">
+        <column xsi:type="int" name="mp_reward_earn" comment="Mp Reward Earned"/>
+        <column xsi:type="int" name="mp_reward_spent" comment="Mp Reward Spent"/>
+        <column xsi:type="decimal" name="mp_reward_discount" scale="4" precision="12" comment="Mp Reward Discount"/>
+        <column xsi:type="decimal" name="mp_reward_base_discount" scale="4" precision="12" comment="Mp Reward Base Discount"/>
+        <column xsi:type="int" name="mp_reward_shipping_earn" comment="Mp Reward Shipping Earn"/>
+        <column xsi:type="int" name="mp_reward_shipping_spent" comment="Mp Reward Shipping Spent"/>
+        <column xsi:type="decimal" name="mp_reward_shipping_discount" scale="4" precision="12" comment="Mp Reward Shipping Discount"/>
+        <column xsi:type="decimal" name="mp_reward_shipping_base_discount" scale="4" precision="12" comment="Mp Reward Shipping Base Discount"/>
+    </table>
+    <table name="sales_invoice_item" resource="default">
+        <column xsi:type="int" name="mp_reward_earn" comment="Mp Reward Earned"/>
+        <column xsi:type="int" name="mp_reward_spent" comment="Mp Reward Spent"/>
+        <column xsi:type="decimal" name="mp_reward_discount" scale="4" precision="12" comment="Mp Reward Discount"/>
+        <column xsi:type="decimal" name="mp_reward_base_discount" scale="4" precision="12" comment="Mp Reward Base Discount"/>
+    </table>
+    <table name="sales_creditmemo" resource="default">
+        <column xsi:type="int" name="mp_reward_earn" comment="Mp Reward Earned"/>
+        <column xsi:type="int" name="mp_reward_spent" comment="Mp Reward Spent"/>
+        <column xsi:type="decimal" name="mp_reward_discount" scale="4" precision="12" comment="Mp Reward Discount"/>
+        <column xsi:type="decimal" name="mp_reward_base_discount" scale="4" precision="12" comment="Mp Reward Base Discount"/>
+        <column xsi:type="int" name="mp_reward_shipping_earn" comment="Mp Reward Shipping Earn"/>
+        <column xsi:type="int" name="mp_reward_shipping_spent" comment="Mp Reward Shipping Spent"/>
+        <column xsi:type="decimal" name="mp_reward_shipping_discount" scale="4" precision="12" comment="Mp Reward Shipping Discount"/>
+        <column xsi:type="decimal" name="mp_reward_shipping_base_discount" scale="4" precision="12" comment="Mp Reward Shipping Base Discount"/>
+    </table>
+    <table name="sales_creditmemo_item" resource="default">
+        <column xsi:type="int" name="mp_reward_earn" comment="Mp Reward Earned"/>
+        <column xsi:type="int" name="mp_reward_spent" comment="Mp Reward Spent"/>
+        <column xsi:type="decimal" name="mp_reward_discount" scale="4" precision="12" comment="Mp Reward Discount"/>
+        <column xsi:type="decimal" name="mp_reward_base_discount" scale="4" precision="12" comment="Mp Reward Base Discount"/>
+    </table>
+    <table name="quote" resource="default">
+        <column xsi:type="int" name="mp_reward_earn" comment="Mp Reward Earned"/>
+        <column xsi:type="int" name="mp_reward_spent" comment="Mp Reward Spent"/>
+        <column xsi:type="decimal" name="mp_reward_discount" scale="4" precision="12" comment="Mp Reward Discount"/>
+        <column xsi:type="decimal" name="mp_reward_base_discount" scale="4" precision="12" comment="Mp Reward Base Discount"/>
+        <column xsi:type="varchar" name="mp_reward_applied" length="32" nullable="true" comment="Mp Reward Applied"/>
+    </table>
+</schema>

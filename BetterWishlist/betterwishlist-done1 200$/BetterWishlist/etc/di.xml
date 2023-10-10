@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--Grid collection-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mpwishlist_report_listing_data_source" xsi:type="string">\Mageplaza\BetterWishlist\Model\ResourceModel\WishlistItem\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mageplaza\Reports\Block\Menu">
+        <plugin name="mp_get_grid_name" type="Mageplaza\BetterWishlist\Plugin\Reports\Block\Menu"/>
+    </type>
+
+    <!--Api-->
+    <preference for="Mageplaza\BetterWishlist\Api\Data\CategoryInterface" type="Mageplaza\BetterWishlist\Model\Category" />
+    <preference for="Mageplaza\BetterWishlist\Api\Data\ItemInterface" type="Mageplaza\BetterWishlist\Model\Api\Data\Item" />
+    <preference for="Mageplaza\BetterWishlist\Api\Data\ConfigInterface" type="Mageplaza\BetterWishlist\Model\Config" />
+    <preference for="Mageplaza\BetterWishlist\Api\Data\Config\GeneralInterface" type="Mageplaza\BetterWishlist\Model\Config\General" />
+    <preference for="Mageplaza\BetterWishlist\Api\ConfigRepositoryInterface" type="Mageplaza\BetterWishlist\Model\Api\ConfigRepository" />
+    <preference for="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" type="Mageplaza\BetterWishlist\Model\Api\BetterWishlistRepository" />
+</config>

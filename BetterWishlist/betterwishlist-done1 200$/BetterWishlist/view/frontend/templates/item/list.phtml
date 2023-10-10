@@ -1,0 +1,172 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\ObjectManager;
+use Magento\Wishlist\Block\Customer\Wishlist\Items;
+
+?>
+<?php
+/** @var Items $block */
+$columns           = $block->getColumns();
+$objectManager     = ObjectManager::getInstance();
+$listProduct       = $objectManager->get('Magento\Catalog\Block\Product\ListProduct');
+$stockRegistry     = $objectManager->get('Magento\CatalogInventory\Model\Stock\StockItemRepository');
+$productModel      = $objectManager->get('\Magento\Catalog\Model\Product');
+$productRepository = $objectManager->get('Magento\Catalog\Model\ProductRepository');
+$_helper           = $objectManager->get('Magento\Catalog\Helper\Output');
+$mpHelper          = $objectManager->get('Mageplaza\BetterWishlist\Helper\Data');
+$cart              = $objectManager->get('Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart');
+
+//
+$wishlistItems = $block->getItems();
+?>
+<div class="products-table wishlist products wrapper table ">
+    <style>
+        @media only screen and (max-width: 760px),
+        (min-device-width: 768px) and (max-device-width: 1024px) {
+            div.table {
+                overflow: auto;
+            }
+        }
+    </style>
+    <?php if (count($wishlistItems)) : ?>
+    <ol class="product-items">
+        <div class="sort-by">
+            <label for="sort-by-select"><?php echo __('Sort By:'); ?></label>
+            <select name="sort" id="sort-by-select">
+                <option
+                    value="default" <?= (!$block->getRequest()->getParam('sort') || $block->getRequest()->getParam('sort') === 'default') ? 'selected="selected"' : '' ?>>
+                    Default
+                </option>
+                <option
+                    value="name-asc" <?= ($block->getRequest()->getParam('sort') == 'name-asc') ? 'selected="selected"' : '' ?>>
+                    Name &#8595;
+                </option>
+                <option
+                    value="name-desc" <?= ($block->getRequest()->getParam('sort') == 'name-desc') ? 'selected="selected"' : '' ?>>
+                    Name &#8593;
+                </option>
+            </select>
+        </div>
+
+        <script>
+            document.getElementById('sort-by-select').addEventListener('change', function () {
+                var selectedValue = this.value;
+                var currentUrl    = new URL(window.location.href);
+                currentUrl.searchParams.set('sort', selectedValue);
+                window.location.href = currentUrl.toString();
+            });
+        </script>
+        <table id="mpwishlist-table-view" class="table">
+            <thead>
+            <tr>
+                <td><?= $block->escapeHtml(__('Image'))?></td>
+                <td><?= $block->escapeHtml(__('Name'))?></td>
+                <td><?= $block->escapeHtml(__('QTY'))?></td>
+                <td><?= $block->escapeHtml(__('Add'))?></td>
+                <?php if ($mpHelper->multiWishlistIsEnabled($block->getStoreId())) : ?>
+                    <td><?= $block->escapeHtml(__('Move'))?></td>
+                <?php endif; ?>
+                <td><?= $block->escapeHtml(__('Remove'))?></td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($wishlistItems as $item) : ?>
+                <?php
+                $image        = 'category_page_list';
+                $productId    = $item->getProductId();
+                if ($productId) {
+                    $productStock = $stockRegistry->get($productId);
+                    $isInStock    = $productStock->getData('is_in_stock');
+                    $product      = $productRepository->getById($productId);
+                }
+                ?>
+                <tr class="product-item-info product-item" data-row="product-item"
+                    id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                    <?php echo (!$isInStock) ? 'style="opacity:0.5;"' : ''; ?>>
+                        <td class="mpwishlist-product-image">
+                            <?php
+                            $productImage = $listProduct->getImage($product, $image);
+                            $position     = ' style="left:' . $productImage->getWidth() . 'px;'
+                                . 'top:' . $productImage->getHeight() . 'px;"';
+                            ?>
+                            <a href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
+                               class="product photo product-item-photo" tabindex="-1">
+                                <?= $productImage->toHtml() ?>
+                            </a>
+                        </td>
+                        <td class="mpwishlist-product-name">
+                            <?php
+                            $_productNameStripped = $block->stripTags($product->getName(), null, true);
+                            ?>
+                            <a class="product-item-link"
+                               href="<?= $block->escapeUrl($product->getProductUrl()) ?>">
+                                <?= $block->escapeHtml(
+                                    $_helper->productAttribute($product, $product->getName(), 'name')) ?>
+                            </a>
+                        </td>
+                        <td class="mpwishlist-product-qty">
+                            <label>
+                                <input type="number" data-role="qty"
+                                       id="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" class="input-text qty"
+                                       data-validate="{'required-number':true,'validate-greater-than-zero':true, 'validate-item-quantity':{'minAllowed':1 ?>,'maxAllowed':1000 ?>}}"
+                                       name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
+                                       value="0" <?= $product->isSaleable() ? '' : 'disabled="disabled"' ?>>
+                            </label>
+                        </td>
+                        <td class="mpwishlist-add-to-cart-button">
+                            <div class="product-item-actions">
+                                <div class="actions-primary">
+                                    <button type="button" data-role="tocart" data-post='<?= /* @noEscape */
+                                    $cart->getItemAddToCartParams($item) ?>'
+                                            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                            data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                                            class="action tocart primary">
+                                        <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <?php if ($mpHelper->multiWishlistIsEnabled($block->getStoreId())) : ?>
+                            <td class="mpwishlist-move-button">
+                                <a href="#" data-role="move" data-item-id='<?php echo $item->getId(); ?>'
+                                   title="<?php echo __('Move Item') ?>" class="mp-wishlist-move btn-move action move" style="float: left;">
+                                    <span><?php echo __('Move'); ?></span>
+                                </a>
+                            </td>
+                        <?php endif; ?>
+                        <td class="mpwishlist-remove-button">
+                            <a href="#" data-role="remove" data-post-remove='<?= /* @noEscape */
+                            $cart->getItemRemoveParams($item) ?>' title="<?= $block->escapeHtmlAttr(__('Remove')) ?>"
+                               class="btn-remove action delete">
+                                <span><?= $block->escapeHtml(__('Remove')) ?></span>
+                            </a>
+                        </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php else : ?>
+            <div class="message info empty">
+                <span><?= $block->escapeHtml(__('This Wish List has no Items')) ?></span>
+            </div>
+        <?php endif; ?>
+    </ol>
+</div>
+<style>
+    .sort-by {
+        float: right;
+    }
+
+    #sort-by-select {
+        width: auto;
+    }
+
+    .sort-by label,
+    .sort-by select {
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>

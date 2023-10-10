@@ -1,0 +1,38 @@
+"CSS Class *","CSS Class *"
+Add,Add
+"URL Contains *","URL Contains *"
+"Text *","Text *"
+"Category Page","Category Page"
+"Product Detail Page","Product Detail Page"
+"CMS Page","CMS Page"
+"Search Result Page","Search Result Page"
+"Related, Cross-Sell, Up-Sell Products","Related, Cross-Sell, Up-Sell Products"
+Icon,Icon
+Placeholder,Placeholder
+"Blurred (with transition)","Blurred (with transition)"
+"Low Resolution","Low Resolution"
+Transparent,Transparent
+More,More
+"Lazy Loading","Lazy Loading"
+General,General
+Enable,Enable
+"Select <b>Yes</b> to enable this module.<br />
+                        1. It helps to reduce abandonment cart with <a href=""https://www.mageplaza.com/magento-2-one-step-checkout-extension/"" target=""_blank"">One Step Checkout</a>. <br />
+                        2. Magento stores see upwards of 30% revenue 💰 with AVADA. <a href=""https://go.avada.io/mageplaza"">Learn more</a>","Select <b>Yes</b> to enable this module.<br />
+                        1. It helps to reduce abandonment cart with <a href=""https://www.mageplaza.com/magento-2-one-step-checkout-extension/"" target=""_blank"">One Step Checkout</a>. <br />
+                        2. Magento stores see upwards of 30% revenue 💰 with AVADA. <a href=""https://go.avada.io/mageplaza"">Learn more</a>"
+"Apply For","Apply For"
+"Exclude Pages With URL Including","Exclude Pages With URL Including"
+"Page(s) with URL(s) containing the above path(s) will not selected to apply lazy loading<br>Example: /gear.html","Page(s) with URL(s) containing the above path(s) will not selected to apply lazy loading<br>Example: /gear.html"
+"Exclude CSS Class","Exclude CSS Class"
+"Images including css class above will not be applied with lazy loading<br>Example: &lt;img class=""downloadable-product"" src=""lifelong.jpg""/&gt;. If ""downloadable-product"" is excluded, the image will not be applied with lazy loading.","Images including css class above will not be applied with lazy loading<br>Example: &lt;img class=""downloadable-product"" src=""lifelong.jpg""/&gt;. If ""downloadable-product"" is excluded, the image will not be applied with lazy loading."
+"Exclude Text","Exclude Text"
+"Image title or image name contains the text above will not be applied with lazy loading<br>Example: &lt;img title=""lifelong-product"" src=""download.jpg""/&gt; or &lt;img alt=""lifelong"" src=""lifelong.jpg""/&gt; . If ""lifelong"" is an excluded text, this image is not applied with lazy loading.","Image title or image name contains the text above will not be applied with lazy loading<br>Example: &lt;img title=""lifelong-product"" src=""download.jpg""/&gt; or &lt;img alt=""lifelong"" src=""lifelong.jpg""/&gt; . If ""lifelong"" is an excluded text, this image is not applied with lazy loading."
+"Loading Threshold","Loading Threshold"
+"When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport.","When no threshold is set, images will immediately load when they appear on screen. Defining a threshold (in pixels) will start pre-loading any images that appear outside the viewport<br>For example, if the threshold is 200px, the image load appears within 200px from the viewport."
+"Loading Type","Loading Type"
+"Upload Icon","Upload Icon"
+"Upload loading icon. Support gif, jpg, jpeg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px","Upload loading icon. Support gif, jpg, jpeg, png. If no file is chosen, the default icon will be used. <br>Recommended: 64x64 px"
+"Resize Icon Width","Resize Icon Width"
+"Resize Icon Height","Resize Icon Height"
+"Placeholder Type","Placeholder Type"

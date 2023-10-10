@@ -1,0 +1,102 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+?>
+
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        var deliveryEnable = $('#feed_delivery_enable'),
+            protocol       = $('#feed_protocol');
+
+        function fieldControl () {
+            var isEnabled        = deliveryEnable.val(),
+                protocolSelected = protocol.val();
+
+            if (isEnabled > 0) {
+                setRowVisibility('#feed_protocol', true);
+                if (protocolSelected !== 'sftp' && protocolSelected !== 'ftp') {
+                    setRowVisibility('#feed_passive_mode', false);
+                    setRowVisibility('#feed_host_name', false);
+                    setRowVisibility('#feed_user_name', false);
+                    setRowVisibility('#feed_directory_path', false);
+                    setRowVisibility('#feed_password', false);
+                    setRowVisibility('#feed_path_key', false);
+
+                    setRowVisibility('#feed_request_url', true);
+                    setRowVisibility('#feed_headers', true);
+                    setRowVisibility('#feed_test_connect', false);
+                } else {
+                    setRowVisibility('#feed_host_name', true);
+                    setRowVisibility('#feed_user_name', true);
+                    setRowVisibility('#feed_directory_path', true);
+                    setRowVisibility('#feed_password', true);
+
+                    setRowVisibility('#feed_request_url', false);
+                    setRowVisibility('#feed_headers', false);
+                    setRowVisibility('#feed_test_connect', true);
+
+                    if (protocolSelected == 'sftp') {
+                        setRowVisibility('#feed_path_key', true);
+                        setRowVisibility('#feed_passive_mode', false);
+                    } else {
+                        setRowVisibility('#feed_path_key', false);
+                        setRowVisibility('#feed_passive_mode', true);
+                    }
+                }
+            } else {
+                setRowVisibility('#feed_protocol', false);
+                setRowVisibility('#feed_request_url', false);
+                setRowVisibility('#feed_headers', false);
+                setRowVisibility('#feed_test_connect', false);
+                setRowVisibility('#feed_passive_mode', false);
+                setRowVisibility('#feed_host_name', false);
+                setRowVisibility('#feed_user_name', false);
+                setRowVisibility('#feed_directory_path', false);
+                setRowVisibility('#feed_password', false);
+                setRowVisibility('#feed_path_key', false);
+            }
+        }
+
+        function setRowVisibility (id, isVisible) {
+            if ($(id).length) {
+                var tr = $(id).parent().parent();
+
+                if (id === '#feed_path_key') {
+                    tr = $(id).parent().parent().parent();
+                }
+
+                if (isVisible) {
+                    tr.show();
+                } else {
+                    tr.hide();
+                }
+            }
+        }
+
+        fieldControl();
+
+        deliveryEnable.change(function () {
+            fieldControl();
+        })
+        protocol.change(function () {
+            fieldControl();
+        })
+    })
+</script>

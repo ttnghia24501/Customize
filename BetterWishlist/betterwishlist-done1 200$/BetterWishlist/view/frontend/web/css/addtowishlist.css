@@ -1,0 +1,53 @@
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+.admin__control-select {
+    width: auto;
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+input[type="text"].admin__control-text {
+    -webkit-appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #adadad;
+    border-radius: 1px;
+    box-shadow: none;
+    color: #303030;
+    font-size: 1.4rem;
+    font-weight: 400;
+    height: auto;
+    line-height: 1.36;
+    padding: 0.6rem 1rem 0.6rem;
+    transition: border-color 0.1s linear;
+    vertical-align: baseline;
+    width: auto;
+}
+
+.add-after-popup {
+    max-width: 800px;
+    margin: auto;
+}
+
+#add-wishlist-after-notification .continue button, #add-wishlist-after-notification .go-to-wishlist button {
+    background-color: #f05324;
+    color: white;
+    width: 90%;
+}

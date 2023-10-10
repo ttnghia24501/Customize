@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mageplaza_better_wishlist" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Better Wishlist</label>
+            <tab>mageplaza</tab>
+            <resource>Mageplaza_BetterWishlist::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+                <field id="remove_after_add_to_cart" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Remove Items after being Added to Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[If <strong>Yes</strong>, products after being added to cart will be removed from the wishlist.]]></comment>
+                </field>
+                <field id="enabled_multi_wishlist" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show Multiple Wishlist Tabs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If <strong>Yes</strong>, tabs of wishlists will be displayed.]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="show_all_item" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show the All-Item Tab</label>
+                    <comment><![CDATA[Select <strong>Yes</strong> to show the tab which contains all the wished items at the frontend.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled_multi_wishlist">1</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="default_wishlist" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Default Wishlist(s)</label>
+                    <frontend_model>Mageplaza\BetterWishlist\Block\Adminhtml\System\Config\WishlistCategory</frontend_model>
+                    <backend_model>Mageplaza\BetterWishlist\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <depends>
+                        <field id="enabled_multi_wishlist">1</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="allow_customer_create_wishlist" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allow Customers to Create Wishlists</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to show the tab which contains all the wished items at the frontend.]]></comment>
+                    <depends>
+                        <field id="enabled_multi_wishlist">1</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="limit_number_of_wishlist" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Limit the number of Wishlists created by customers</label>
+                    <comment><![CDATA["Used to limit the number of wishlists of each customer.<br>Default = 5. If leaving blank or zero, there is no limitation."]]></comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <depends>
+                        <field id="enabled_multi_wishlist">1</field>
+                        <field id="allow_customer_create_wishlist">1</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="font_awesome" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Font Awesome for Wish Lists Page</label>
+                    <comment><![CDATA[If the current theme is using Font Awesome, you should select <strong>No</strong> to optimize performance of the Wish Lists Page.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled_multi_wishlist">1</field>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="email_config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Settings</label>
+                <field id="comment" translate="label" type="label" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Mageplaza\BetterWishlist\Block\Adminhtml\System\Config\EmailGuide</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

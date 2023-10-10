@@ -1,0 +1,205 @@
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+
+<!--@subject {{trans "Reward Points Balance Updated at %store_name" store_name=$store_name}} @-->
+<!--@vars {
+"var point_amount":"Transaction Amount",
+"var status":"Transaction Status",
+"var point_balance":"Current Balance",
+"var comment":"Transaction Comment",
+"var expiration_date":"Transaction Expiration Date",
+"var customer_name":"Customer Name"
+} @-->
+
+<!--@styles
+.header {
+    text-align: center;
+}
+h1 {
+    text-align: center;
+    color: #01007F;
+}
+h3 {
+    color: #01007F;
+}
+.reward-table {
+    border-collapse: collapse;
+    width:100%;
+    border: none;
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
+}
+.reward-table th {
+    border: 1px solid #ACA8A8;
+    padding: 10px;
+    text-align: left;
+    background-color: #01007F;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.reward-table td {
+    border: 1px solid #ACA8A8;
+    padding: 10px;
+    text-align: left;
+    background-color: #ffffff;
+}
+.trans-detail {
+    width: 100%;
+    float:left;
+}
+.ul-left {
+    max-width: 40%;
+    float: left;
+    padding: 0;
+    list-style: none;
+}
+.field-name {
+    color: #272727;
+    font-size: 14px;
+    font-weight: 600;
+}
+.complete {
+    color: #00BE35;
+    font-size: 13.83px;
+    font-weight: bold;
+}
+.ul-right {
+    max-width: 40%;
+    float: right;
+    padding: 0;
+    list-style: none;
+}
+.button {
+    text-align: center;
+}
+.button a{
+    padding: 10px 20px;
+    background-color: #39E070;
+    color: #000000 !important;
+    border-radius: 10px;
+}
+.button:hover {
+    text-decoration: none !important;
+}
+.footer {
+    width: 100%;
+    background-color: #D1D3D4 !important;
+}
+.footer-address {
+    float: left;
+    margin-left: 22px;
+    line-height: 24px;
+    margin-top : 15px !important;
+}
+.footer-right {
+    float: right;
+    line-height: 23px;
+    margin-top: 15px
+}
+.footer-right p a{
+    color: #0249D3 !important;
+    margin-right: 60px;
+}
+@-->
+{{template config_path="design/email/header_template"}}
+
+<h1>{{trans "Your Mageplaza Reward Points Balance is now updated!" }}</h1>
+
+<p>
+    <p><strong>{{trans "Hi %name" name=$customer_name}}</strong></p>
+    <p>{{trans "Thank you for shopping with us. Here's an update of your Reward Points balance changes.<br/>
+        Please <a href="%reward_url">loginto your account</a> to view more details." reward_url=$this.getUrl($store,'customer/rewards',[_nosid:1]) |raw}}</p>
+<p>
+<h3>{{trans "Reward Point details"}}</h3>
+<table class="reward-table">
+    <thead>
+    <tr>
+        <th>{{trans "Order"}}</th>
+        <th>{{trans "Product"}}</th>
+        <th>{{trans "Qty"}}</th>
+        <th>{{trans "Transaction amount (Points)"}}</th>
+        <th>{{trans "Current balance (Points)"}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#12345678</td>
+        <td>Hero hoddie</td>
+        <td>1</td>
+        <td>-20</td>
+        <td>{{trans "%balance" balance=$point_balance}}</td>
+    </tr>
+    </tbody>
+</table>
+<h3>{{trans "Transaction details"}}</h3>
+<div class="trans-detail">
+    <ul class="ul-left" style="margin-left: -15px">
+    <li>
+        <span class="field-name">Customer name: </span><span>James Alacaba</span>
+    </li>
+    <li>
+        <span class="field-name">Phone number: </span><span>012 345 67890</span>
+    </li>
+    <li>
+        <span class="field-name">Email: </span><span>lala@gmail.com</span>
+    </li>
+    </ul>
+    <ul class="ul-right">
+        <li>
+            <span class="field-name">Order status: </span><span class="complete">Completed</span>
+        </li>
+        <li>
+            <span class="field-name">Transaction comment:<br/></span>
+            <span>Spend point for purschasing order #12345678</span>
+        </li>
+    </ul>
+</div>
+<div class="button">
+    <p>{{trans "<a href="%button_url">View Recent Transactions</a>" button_url=$this.getUrl($store,'customer/rewards/transaction',[_nosid:1]) |raw}}</p>
+</div>
+<tr class="footer">
+    <table>
+        <tr>
+            <td>
+                <p class="footer-address">Mageplaza<br/>100Church St.<br/>Manhattan,New York<br/>United States</p>
+                <div class="footer-right">
+                    <p>
+                        {{trans "<a href=%url_about_us>About Us</a>"
+                        url_about_us=$this.getUrl($store,'about-us',[_nosid:1]) |raw}}
+                    </p>
+                    <p>
+                        {{trans "<a href=%url_support>Support</a>" url_support=$this.getUrl($store,'support',[_nosid:1])
+                        |raw}}
+                    </p>
+                    <p>
+                        {{trans "<a href=%url_rewards>Reward Program</a>"
+                        url_rewards=$this.getUrl($store,'rewards',[_nosid:1])
+                        |raw}}
+                    </p>
+                    <p>
+                        {{trans "<a href=%url_faqs>FAQs</a>" url_faqs=$this.getUrl($store,'faqs',[_nosid:1]) |raw}}
+                    </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</tr>

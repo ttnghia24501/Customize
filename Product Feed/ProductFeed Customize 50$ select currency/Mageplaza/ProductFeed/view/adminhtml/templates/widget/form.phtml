@@ -1,0 +1,59 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\GoogleShoppingApi;
+
+/** @var GoogleShoppingApi $block */
+?>
+<div class="entry-edit form-inline" id="mp_mapping">
+    <fieldset class="fieldset admin__fieldset " id="base_fieldset">
+        <legend class="admin__legend legend">
+            <span><?= $block->escapeHtml(__('Google Shopping API Fields')) ?></span>
+        </legend><br>
+        <table id="mp-mapping-table" style="width: 100%">
+            <thead>
+                <tr>
+                    <th><?= $block->escapeHtml(__('Google Shopping API Fields')) ?></th>
+                    <th><?= $block->escapeHtml(__('Magento Fields')) ?></th>
+                    <th><?= $block->escapeHtml(__('Default Value')) ?></th>
+                    <th><?= $block->escapeHtml(__('Internal Note')) ?></th>
+                </tr>
+            </thead>
+            <tbody id="mapping-body">
+            <?= /** @noEscape */ $block->getMappingFields()?>
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#mp_mapping": {
+            "Mageplaza_ProductFeed/js/feed/googleShopping":{
+                "isEdit": <?= /** @noEscape */ $block->isEdit() ?>,
+                "generalLabel": "<?= /** @noEscape */ __('General') ?>",
+                "errorLabel": "<?= /** @noEscape */ __('This is a required field.') ?>",
+                "mappingUrl": "<?= /** @noEscape */ $block->getMappingUrl() ?>",
+                "variables" :  <?= /** @noEscape */ $block->getVariables() ?>
+            }
+        }
+    }
+</script>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mageplaza_RewardPoints::reward_points" title="Reward Points" module="Mageplaza_RewardPoints" sortOrder="150" resource="Mageplaza_RewardPoints::reward_points" parent="Magento_Backend::marketing"/>
+        <add id="Mageplaza_RewardPoints::earning_rate" title="Earning Rate" module="Mageplaza_RewardPoints" sortOrder="10" action="mpreward/earning" resource="Mageplaza_RewardPoints::earning_rate" parent="Mageplaza_RewardPoints::reward_points"/>
+        <add id="Mageplaza_RewardPoints::spending_rate" title="Spending Rate" module="Mageplaza_RewardPoints" sortOrder="20" action="mpreward/spending" resource="Mageplaza_RewardPoints::spending_rate" parent="Mageplaza_RewardPoints::reward_points"/>
+        <add id="Mageplaza_RewardPoints::transaction" title="Transactions" module="Mageplaza_RewardPoints" sortOrder="30" action="mpreward/transaction" resource="Mageplaza_RewardPoints::transaction" parent="Mageplaza_RewardPoints::reward_points"/>
+        <add id="Mageplaza_RewardPoints::configuration" title="Configuration" module="Mageplaza_RewardPoints" sortOrder="666" action="adminhtml/system_config/edit/section/rewardpoints" resource="Mageplaza_RewardPoints::configuration" parent="Mageplaza_RewardPoints::reward_points"/>
+    </menu>
+</config>

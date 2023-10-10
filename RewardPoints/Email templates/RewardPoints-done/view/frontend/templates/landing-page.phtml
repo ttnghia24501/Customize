@@ -1,0 +1,108 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use \Mageplaza\RewardPoints\Block\Html\LandingPage;
+
+/** @var LandingPage $block */
+
+?>
+
+<div class="mp-landing-page">
+    <div class="mp-landing-page-header">
+        <h2><strong><?= $block->escapeHtml(__('See the workflow of reward system')) ?></strong></h2>
+        <div class="col-mp mp-3 mp-sm-6 mp-xs-12">
+            <div class="mp-landing-page-header-content">
+                <img src="<?= $block->escapeUrl($block->getViewFileUrl(
+                    'Mageplaza_RewardPoints::images/default/reward-points-system-orkflow.png'
+                )) ?> " alt="<?= $block->escapeHtml(__('Step 1')) ?>">
+                <i class="fa fa-long-arrow-right fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="mp-margin-top-20"><b><?= $block->escapeHtml(__('Set up Reward System rules')) ?></b></div>
+        </div>
+        <div class="col-mp mp-3 mp-sm-6 mp-xs-12">
+            <div class="mp-landing-page-header-content">
+                <img src="<?= $block->escapeUrl($block->getViewFileUrl(
+                    'Mageplaza_RewardPoints::images/default/customers-interact-on-store.png'
+                )) ?> " alt="<?= $block->escapeHtml(__('Step 2')) ?>">
+                <i class="fa fa-long-arrow-right fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="mp-margin-top-20"><b><?= $block->escapeHtml(__('Customers interact on store')) ?></b></div>
+        </div>
+        <div class="col-mp mp-3 mp-sm-6 mp-xs-12">
+            <div class="mp-landing-page-header-content">
+                <img src="<?= $block->escapeUrl($block->getViewFileUrl(
+                    'Mageplaza_RewardPoints::images/default/customers-get-reward-points.png'
+                )) ?> " alt="<?= $block->escapeHtml(__('Step 3')) ?>">
+                <i class="fa fa-long-arrow-right fa-2x" aria-hidden="true"></i>
+            </div>
+            <div class="mp-margin-top-20"><b><?= $block->escapeHtml(__('Customers get Points')) ?></b></div>
+        </div>
+        <div class="col-mp mp-3 mp-sm-6 mp-xs-12">
+            <div class="mp-landing-page-header-content">
+                <img src="<?= $block->escapeUrl($block->getViewFileUrl(
+                    'Mageplaza_RewardPoints::images/default/customers-spend-reward-points-on-next-purchases.png'
+                )) ?> " alt="<?= $block->escapeHtml(__('Step 4')) ?>">
+            </div>
+            <div class="mp-margin-top-20">
+                <b><?= $block->escapeHtml(__('Customers spend points on next purchases')) ?></b></div>
+        </div>
+    </div>
+    <div class="mp-landing-page-content">
+        <h2><strong><?= $block->escapeHtml(__('Rewards program for loyal customers')) ?></strong></h2>
+        <div class="mp-landing-page-content-image">
+            <div class="thumb" style="background-image: url(<?= $block->escapeUrl($block->getViewFileUrl(
+                'Mageplaza_RewardPoints::images/default/reward-points-shopping.png'
+            )) ?>);">
+            </div>
+        </div>
+        <div class="content">
+            <div>
+                <strong><?= $block->escapeHtml(__('Every time you shop with us, you\'ll have an even better experience going from surprise to surprise.')) ?></strong>
+            </div>
+            <div>
+                <strong><?= $block->escapeHtml(__('It\'s a pity you could miss it. With the bonus points system, you can earn points when:')) ?></strong>
+            </div>
+            <ul>
+                <li><?= $block->escapeHtml(__('Reward point for purchases.')) ?></li>
+                <li><?= $block->escapeHtml(__('Reward point when creating a new account.')) ?></li>
+                <li><?= $block->escapeHtml(__('Reward point when signing up for the newsletter.')) ?></li>
+                <li><?= $block->escapeHtml(__('Reward point when writing reviews every time you experience our products. Each of your comments can help us to improve our product and the quality it delivers.')) ?></li>
+                <li><?= $block->escapeHtml(__('Reward point when you send an email invitation to a friend')) ?></li>
+                <li><?= $block->escapeHtml(__('You will receive a reward point on your birthday.')) ?></li>
+                <li><?= $block->escapeHtml(__('Reward for Social Sharing.')) ?></li>
+                <li><?= $block->escapeHtml(__('Reward point when you like our page with Facebook.')) ?></li>
+                <li><?= $block->escapeHtml(__('Reward Point when tweeting our a page on Twitter.')) ?></li>
+                <li><?= $block->escapeHtml(__('You can get Reward points after a few days when you\'re not logged in and stay logged in to your account.')) ?></li>
+            </ul>
+            <div><?= $block->escapeHtml(__('You can use the points earned when making a purchase, ... Note that the points you earn may be refunded after you return the order and the time for the bonus points will expire.')) ?></div>
+            <?php if ($block->getHelperData()->isUltimate()) : ?>
+                <div>
+                    <?= /** noEscape */
+                    __(
+                        'That\'s not all, the more you shop, the more benefits and benefits you get with different Milestones and bonus levels. For more information you can see Milestones %1.',
+                        '<a href="' . $block->getUrl('customer/milestone') . '">' . __('here') . '</a>'
+                    )
+                    ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

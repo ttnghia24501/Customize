@@ -1,0 +1,237 @@
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+.admin__control-select {
+    width: auto;
+    margin: 20px 0;
+    max-width: 100%;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu li._active {
+    background-color: #1979c3;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu li:not(._active):hover {
+    background-color: #ccc;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu li._active a {
+    color: white;
+    pointer-events: none;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu button.action-delete {
+    padding: 8px;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu button.action-submit {
+    padding: 5px;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu ._edit .action-dropdown-menu-item-actions {
+    border-left: 1px solid #ffffff;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu ._edit .action-dropdown-menu-item {
+    display: none;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu .admin__control-text {
+    font-size: 1.3rem;
+    min-width: 15rem;
+    width: calc(100% - 3rem);
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu ._edit .action-dropdown-menu-item-edit {
+    display: block;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu .action-dropdown-menu-item-edit {
+    display: none;
+    padding-left: 1rem;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.admin__data-grid-action-bookmarks ul.admin__action-dropdown-menu {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 35px;
+    padding-left: 0;
+    margin-bottom: 2.5rem;
+}
+
+.mp-wishlist-category li {
+    float: left;
+    margin: 0 5px 5px;
+}
+
+.admin__data-grid-action-bookmarks :before {
+    -webkit-font-smoothing: antialiased;
+    font-family: 'FontAwesome';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    speak: none;
+}
+
+.admin__data-grid-action-bookmarks .action-edit:before {
+    content: '\f044';
+}
+
+.admin__data-grid-action-bookmarks .action-submit:before {
+    content: '\f061';
+}
+
+.admin__data-grid-action-bookmarks .action-delete:before {
+    content: '\f1f8';
+}
+
+.admin__data-grid-action-bookmarks .action-submit > span, .admin__data-grid-action-bookmarks .action-delete > span, .admin__data-grid-action-bookmarks .action-edit > span {
+    clip: rect(0, 0, 0, 0);
+    overflow: hidden;
+    position: absolute;
+    display: none;
+    visibility: hidden;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu .action-dropdown-menu-item {
+    max-width: 23rem;
+    white-space: normal;
+    word-break: break-all;
+}
+
+.admin__data-grid-action-bookmarks .action-delete, .admin__data-grid-action-bookmarks .action-edit {
+    padding: 10px;
+}
+
+.admin__data-grid-action-bookmarks .action-edit {
+    padding-top: 5px;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu > li {
+    height: 100%;
+    position: relative;
+    white-space: nowrap;
+    padding: 0 4rem 0 0;
+    background-color: #eee;
+    border-radius: 3px;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu .action-dropdown-menu-item-actions {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 3.5rem;
+}
+
+.admin__data-grid-action-bookmarks .action-submit, .admin__data-grid-action-bookmarks .action-delete, .admin__data-grid-action-bookmarks .action-edit {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    font-size: 2rem;
+    line-height: 0;
+    vertical-align: top;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu li.un-remove-able {
+    padding: 0;
+}
+
+.action-dropdown-menu-action.action-dropdown-menu-item-last {
+    height: unset;
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 5px 0 5px;
+    background-color: #e1e1e1;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+}
+
+.action-dropdown-menu-action.action-dropdown-menu-item-last:hover {
+    background-color: #ccc;
+}
+
+.action-dropdown-menu-action.action-dropdown-menu-item-last :before {
+    content: '\f067';
+    color: rgba(50, 50, 50, 0.75);
+}
+
+.action-dropdown-menu-action.action-dropdown-menu-item-last a {
+    color: black;
+    text-decoration: none;
+}
+
+.action-dropdown-menu-action.action-dropdown-menu-item-last a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+input#new-category {
+    width: auto;
+}
+
+.all-wishlist-item .products-grid.wishlist .product-item-actions > .mp-wishlist-copy,
+.all-wishlist-item .products-grid.wishlist .product-item-actions > .mp-wishlist-move {
+    display: none;
+}
+
+.products-grid.wishlist .product-item-actions .action.edit {
+    float: left;
+}
+
+.mp-wishlist-category .error-messages .admin__field-error {
+    float: left;
+}
+
+.mp-wishlist-category .error-messages {
+    margin: -30px 0 50px 0;
+}
+
+.admin__field-error {
+    color: red;
+}
+
+/* hide edit icon */
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu > li:not(.un-remove-able):not(.action-dropdown-menu-item-last):hover {
+    padding: 0 4rem 0 0;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu > li {
+    padding: 0 4rem 0 0;
+}
+
+.admin__data-grid-action-bookmarks .admin__action-dropdown-menu > li:hover .action-dropdown-menu-item-actions {
+    visibility: visible;
+}
+
+.mp-wishlist-category.multiple-view {
+    position: relative;
+}
+
+.mp-wishlist-category.multiple-view li button{
+    font-family: 'Helvetica Neue', sans-serif;
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="mageplaza_wishlist_item" resource="default" engine="innodb" comment="Mageplaza Wishlist Item Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="int" name="wishlist_item_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Wishlist Item Id"/>
+    <column xsi:type="varchar" name="category_id" nullable="true" length="255" comment="Category Id"/>
+    <column xsi:type="varchar" name="category_name" nullable="true" length="255" comment="Category Name"/>
+    <column xsi:type="decimal" name="qty" scale="4" precision="12" unsigned="false" nullable="true" comment="Quantity"/>
+    <column xsi:type="timestamp" name="added_at" on_update="false" nullable="true" comment="Added At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <index referenceId="MAGEPLAZA_WISHLIST_ITEM_WISHLIST_ITEM_ID" indexType="btree">
+      <column name="wishlist_item_id"/>
+    </index>
+  </table>
+  <table name="mageplaza_wishlist_user_category" resource="default" engine="innodb" comment="Mageplaza Wishlist User Category Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="int" name="customer_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Customer Id"/>
+    <column xsi:type="varchar" name="category_id" nullable="true" length="255" comment="Category Id"/>
+    <column xsi:type="varchar" name="category_name" nullable="true" length="255" comment="Category Name"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="false" nullable="true" comment="Updated At"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" comment="Created At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <index referenceId="MAGEPLAZA_WISHLIST_USER_CATEGORY_CUSTOMER_ID_CATEGORY_ID" indexType="btree">
+      <column name="customer_id"/>
+      <column name="category_id"/>
+    </index>
+  </table>
+</schema>

@@ -1,0 +1,550 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/** @var \Mageplaza\BetterWishlist\Block\Adminhtml\Customer\Edit\Tab\Category $block */
+$collection            = $block->getCategoryCollection();
+$defaultCollection     = $block->getDefaultCategoryCollection();
+$defaultCategory       = $block->getDefaultCategory();
+$isEnableMultiWishlist = $block->isEnableMultiWishlist();
+$isAllowCustomerCreate = $block->allowCustomerCreateWishlist();
+$limitWishlist         = $block->getLimitWishlist();
+$isEnabled             = $block->isEnabled();
+$customerId            = $this->getRequest()->getParam('id');
+?>
+<?php if ($isEnabled) : ?>
+    <div class="mp-wishlist-category admin__action-dropdown-wrap admin__data-grid-action-bookmarks multiple-view">
+        <?php if ($isEnableMultiWishlist) : ?>
+            <button id="mp-wishlist-category" class="admin__action-dropdown" type="button"
+                    onclick="categoryControl.categoryToggle()">
+        <span class="admin__action-dropdown-text" id="<?= /** @noEscape */ $defaultCategory->getId() ?>">
+            <?= $block->escapeHtml($defaultCategory->getName()) ?>
+        </span>
+            </button>
+            <ul class="admin__action-dropdown-menu">
+                <?php if ($block->isShowAllItem()) : ?>
+                    <li id="all" class="un-remove-able all-item">
+                        <div class="action-dropdown-menu-item">
+                            <a href="#" class="action-dropdown-menu-link"
+                               onclick="categoryControl.changeCat(this)"><?= $block->escapeHtml(__('All Items')) ?></a>
+                        </div>
+                    </li>
+                <?php endif; ?>
+                <?php foreach ($defaultCollection as $item) : ?>
+                    <li id="<?= /** @noEscape */ $item->getId() ?>" class="un-remove-able">
+                        <div class="action-dropdown-menu-item">
+                            <a href="#" onclick="categoryControl.changeCat(this)"
+                               class="action-dropdown-menu-link<?= /** @noEscape */ $item->getDefault() ? ' default-category' : '' ?>"><?= $block->escapeHtml($item->getName()) ?></a>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+                <?php foreach ($collection as $category) : ?>
+                    <li class="li-action-dropdown-menu-item" id="<?= /** @noEscape */ $category->getCategoryId() ?>">
+                        <div class="action-dropdown-menu-item-edit">
+                            <input class="admin__control-text" type="text" value="<?= $block->escapeHtmlAttr($category->getCategoryName()) ?>"
+                                   placeholder="<?= $block->escapeHtmlAttr($category->getCategoryName()) ?>">
+                            <button class="action-submit" onclick="categoryControl.changeCatSubmit(this)" type="button"
+                                    title="<?= $block->escapeHtmlAttr(__('Save all changes')) ?>">
+                                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                            </button>
+                            <div class="action-dropdown-menu-item-actions">
+                                <button class="action-delete" onclick="categoryControl.deleteCat(this)" type="button"
+                                        title="<?= $block->escapeHtmlAttr(__('Delete Category')) ?>">
+                                    <span><?= $block->escapeHtml(__('Delete')) ?></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="action-dropdown-menu-item">
+                            <a href="#" class="action-dropdown-menu-link"
+                               onclick="categoryControl.changeCat(this)">
+                                <?= $block->escapeHtml($category->getCategoryName()) ?>
+                            </a>
+
+                            <div class="action-dropdown-menu-item-actions">
+                                <button class="action-edit" type="button" title="<?php __('Edit Category') ?>"
+                                        onclick="categoryControl.editCat(this)">
+                                    <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+
+                <li class="action-dropdown-menu-action action-dropdown-menu-item-last">
+                    <a id="save-view-as" href="#" onclick="categoryControl.addNewCat(this)"><?= $block->escapeHtml(__('Add New')) ?></a>
+                </li>
+            </ul>
+        <?php else : ?>
+            <button id="mp-wishlist-category" class="admin__action-dropdown" type="button" style="display: none">
+        <span class="admin__action-dropdown-text"
+              id="all"><?= $block->escapeHtml($defaultCategory->getName()) ?></span>
+            </button>
+            <style>
+                #wishlistGrid_massaction-select [value="move"], #wishlistGrid_massaction-select [value="copy"] {
+                    display: none;
+                }
+            </style>
+        <?php endif; ?>
+    </div>
+    <div style="clear: both; height: 20px"></div>
+    <div class="mp-wishlist-controller">
+        <button id="mp-add-wishlist" type="button" onclick="categoryControl.addNewProducts()"
+                class="action- scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+        <span class="ui-button-text">
+            <span><?= $block->escapeHtml(__('Add New Product(s)')) ?></span>
+        </span>
+        </button>
+    </div>
+    <div id="category-select-modal" style="display: none">
+        <input id="action-type" type="hidden">
+        <input id="item-id" type="hidden">
+        <select onchange="categoryControl.selectedCatSelectModal(this)" class="select admin__control-select"></select>
+        <div class="to-new-wishlist" style="display: none;margin: 20px 0">
+            <label for="new-category"><?= $block->escapeHtml(__('New Wishlist Name ')) ?></label>
+            <input id="new-category" type="text" class="admin__control-text">
+        </div>
+        <button id="mc-to-wishlist"
+                class="action- scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                onclick="categoryControl.selectCatModalSubmit()">
+            <span><?= $block->escapeHtml(__('Save')) ?></span>
+        </button>
+    </div>
+    <div class="add-wishlist-modal" style="display: none">
+        <button onclick="mpBetterWishlist.productGridAddSelected()"
+                class="button action primary"><?= $block->escapeHtml(__('Add')) ?></button>
+        <div id="add-wishlist-modal">
+        </div>
+    </div>
+    <style>
+        .mp-wishlist-controller {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        require([
+            'jquery',
+            'underscore',
+            'Magento_Ui/js/modal/modal',
+            'Magento_Ui/js/modal/alert',
+            'mage/translate',
+            "Magento_Ui/js/modal/confirm",
+            'Mageplaza_BetterWishlist/js/customer/wishlist/scripts'
+        ], function ($, _, modal, uiAlert, $t, confirm) {
+            'use strict';
+            var categoryTableEl  = $('.admin__action-dropdown-wrap.admin__data-grid-action-bookmarks.multiple-view'),
+                saveCategoryEl   = $('#save-view-as'),
+                bodyEl           = $('body'),
+                activeCatEl      = $('#mp-wishlist-category span'),
+                selectCatModal   = $('#category-select-modal'),
+                catModalSelectEl = $('#category-select-modal select');
+
+            window.categoryControl = {
+                nameArray: {},
+                initNameArray: function () {
+                    var self = this;
+
+                    categoryTableEl.find('li').not('.action-dropdown-menu-item-last').each(function () {
+                        self.nameArray[$(this).attr('id')] = $(this).find('a').text();
+                    });
+                },
+                selectedCatSelectModal: function (e) {
+                    if ($(e).val() === 'new') {
+                        $('.to-new-wishlist').show();
+                    } else {
+                        $('.to-new-wishlist').hide();
+                    }
+                },
+                massActionPopupObs: function () {
+                    bodyEl.on('click', '#wishlistGrid_massaction-form button.action-default.scalable', function () {
+                        var categoryId = activeCatEl.attr('id'),
+                            type       = $('#wishlistGrid_massaction-select').val(),
+                            itemIds    = wishlistGrid_massactionJsObject.checkedString,
+                            options    = {
+                                type: 'popup',
+                                title: type.replace(/^./, type[0].toUpperCase()) + $t(' Item(s) to Wishlist'),
+                                responsive: true,
+                                innerScroll: true,
+                                buttons: []
+                            },
+                            popup;
+
+                        if (varienStringArray.count(wishlistGrid_massactionJsObject.checkedString) == 0) {
+                            uiAlert({
+                                content: wishlistGrid_massactionJsObject.errorText
+                            });
+
+                            return;
+                        }
+
+                        if (type === 'delete') {
+                            confirm({
+                                content: '<?= $block->escapeHtml(__('Are you sure you want to delete the selected item(s)?')) ?>',
+                                actions: {
+                                    confirm: function () {
+                                        wishlistControl.reload('&type=massdelete' + '&fromCategoryId=' + categoryId +
+                                            '&itemIds=' + itemIds
+                                        );
+                                    }
+                                }
+                            });
+                            return;
+                        }
+                        $('#action-type').val('mass' + type);
+
+                        selectCatModal.trigger('loadCategory');
+                        popup = modal(options, selectCatModal);
+                        popup.openModal();
+                        selectCatModal.find('select').trigger('change');
+                    });
+                },
+                moveCopyCheck: function (catId) {
+                    if (catId === 'all') {
+                        bodyEl.addClass('all-wishlist-item');
+                        return;
+                    }
+                    if ($('.mp-wishlist-category li').not('.all-item').length === 1) {
+                        bodyEl.addClass('all-wishlist-item');
+                    } else {
+                        bodyEl.removeClass('all-wishlist-item');
+                    }
+
+                },
+                init: function () {
+                    window.mpBetterWishlist = new ProductGridAdd();
+                    window.mpBetterWishlist.setLoadBaseUrl('<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/addproducts', ['id' => $customerId]) ?>');
+                    window.mpBetterWishlist.setProductsGridAddUrl('<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/editwishlist', ['form_key' => $block->getFormKey(), 'id' => $customerId]) ?>');
+                    this.moveCopyCheck(activeCatEl.attr('id'));
+                    bodyEl.addClass('un-remove-able');
+                    if (activeCatEl.attr('id') === 'all') {
+                        bodyEl.addClass('un-remove-able all-wishlist-item');
+                    }
+                    window.mpCheckInterval = 0;
+                    this.massActionPopupObs();
+                    this.initNameArray();
+                    this.editCatEnterObs();
+                },
+                getViewHtml: function (categoryId, viewLabel) {
+                    var undefinedClass = '';
+
+                    if (viewLabel === '') {
+                        undefinedClass = ' _edit undefined';
+                    }
+                    return '   <li class="li-action-dropdown-menu-item' + undefinedClass + '" id="' + categoryId + '">' +
+                        '       <div class = "action-dropdown-menu-item-edit">' +
+                        '           <input class="admin__control-text" type="text" value="' + viewLabel + '" placeholder="' + viewLabel + '">' +
+                        '           <button class="action-submit" onclick="categoryControl.changeCatSubmit(this)" type="button" title="' + $t('Save all changes') + '">' +
+                        '               <span>' + $t('Submit') + '</span>' +
+                        '           </button>' +
+                        '           <div class="action-dropdown-menu-item-actions">' +
+                        '               <button class="action-delete" onclick="categoryControl.deleteCat(this)" type="button" title="' + $t('Delete Category') + '">' +
+                        '                   <span>' + $t('Delete') + '</span>' +
+                        '               </button>' +
+                        '           </div>' +
+                        '       </div>' +
+                        '       <div class="action-dropdown-menu-item">' +
+                        '           <a href class="action-dropdown-menu-link" onclick="categoryControl.changeCat(this)">' + viewLabel + '</a>' +
+                        '           <div class="action-dropdown-menu-item-actions">' +
+                        '               <button class="action-edit" onclick="categoryControl.editCat(this)" type="button" title="' + $t('Edit Category') + '">' +
+                        '                   <span>' + $t('Edit') + '</span>' +
+                        '               </button>' +
+                        '           </div>' +
+                        '       </div>' +
+                        '   </li>';
+                },
+                selectCatModalSubmit: function () {
+                    var self           = this,
+                        toCategoryId   = catModalSelectEl.val(),
+                        fromCategoryId = activeCatEl.attr('id'),
+                        toCategoryName = $('#category-select-modal select :selected').text(),
+                        itemId         = $('#item-id').val(),
+                        type           = $('#action-type').val(),
+                        newCategoryId  = '',
+                        viewLabel      = '',
+                        lastEl,
+                        errorClass,
+                        parentClass,
+                        d,
+                        viewHtml,
+                        itemIds;
+
+                    if (toCategoryId === 'new') {
+                        lastEl      = $('.action-dropdown-menu-item-last');
+                        errorClass  = '#category-select-modal .admin__field-error';
+                        parentClass = $('#category-select-modal .to-new-wishlist');
+                        viewLabel   = $('#new-category').val().trim();
+
+                        if (_.values(self.nameArray).indexOf(viewLabel) > -1) {
+                            self.showErrorMes('<label class="admin__field-error">' +
+                                $t('The wishlist name already exists.') + '</label>', errorClass, parentClass);
+                            return;
+                        }
+                        if (viewLabel === '') {
+                            self.showErrorMes('<label class="admin__field-error">' +
+                                $t('Please fill in the wishlist name.') + '</label>', errorClass, parentClass);
+                            return;
+                        }
+
+                        d             = new Date();
+                        newCategoryId = d.getTime() + '_' + d.getMilliseconds();
+
+                        self.nameArray[newCategoryId] = viewLabel;
+                        viewHtml      = this.getViewHtml(newCategoryId, viewLabel);
+                        lastEl.before(viewHtml);
+                    }
+                    itemIds = wishlistGrid_massactionJsObject.checkedString;
+
+                    wishlistControl.reload('&type=' + type + '&itemId=' + itemId + '&fromCategoryId=' + fromCategoryId
+                        + '&toCategoryId=' + toCategoryId + '&toCategoryName=' + toCategoryName
+                        + '&newCategoryId=' + newCategoryId + '&newCategoryName=' + viewLabel + '&itemIds=' + itemIds
+                    );
+                    selectCatModal.data('modal').closeModal();
+                },
+                showErrorMes: function (mess, errorClass, parentClass) {
+                    parentClass.append(mess);
+                    clearInterval(window.mpCheckInterval);
+                    window.mpCheckInterval = setInterval(function () {
+                        $(errorClass).remove();
+                        clearInterval(window.mpCheckInterval);
+                    }, 3000);
+                },
+                categoryToggle: function () {
+                    if (categoryTableEl.hasClass('_active')) {
+                        categoryTableEl.removeClass('_active');
+                        saveCategoryEl.show();
+                        categoryTableEl.find('li').removeClass('_edit');
+                        categoryTableEl.find('.undefined').remove();
+
+                    } else {
+                        categoryTableEl.addClass('_active');
+                    }
+                },
+                editCat: function (e) {
+                    var parentEl = $(e).parents('li');
+
+                    saveCategoryEl.hide();
+                    parentEl.addClass('_edit');
+                    parentEl.siblings().removeClass('_edit');
+                },
+                changeCatSubmit: function (e) {
+                    var self     = this,
+                        parentEl = $(e).parents('li'),
+                        inputEl  = parentEl.find('input'),
+                        labelEl  = parentEl.find('a');
+
+                    if (inputEl.val().trim() === ''
+                        || (_.values(self.nameArray).indexOf(inputEl.val()) > -1 && (inputEl.val() !== labelEl.text()))
+                    ) {
+                        self.showErrorMes(
+                            '<label style="float: left;" class="admin__field-error">' +
+                            $t('Name must be unique and not null') + '</label>',
+                            '.multiple-view .admin__field-error',
+                            parentEl.find('.action-dropdown-menu-item-edit')
+                        );
+                        return;
+                    }
+                    self.nameArray[parentEl.attr('id')] = inputEl.val();
+                    labelEl.text(inputEl.val());
+                    inputEl.attr('placeholder', inputEl.val());
+                    parentEl.removeClass('undefined');
+                    $('#save-view-as').show();
+                    if (activeCatEl.attr('id') !== 'all') {
+                        if ($('.mp-wishlist-category li').not('.all-item').length === 1) {
+                            bodyEl.addClass('all-wishlist-item');
+                        } else {
+                            bodyEl.removeClass('all-wishlist-item');
+                        }
+                    }
+
+                    parentEl.removeClass('_edit');
+                    $.ajax({
+                        url: '<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/category', ['_current' => true, 'form_key' => $block->getFormKey()]) ?>',
+                        method: 'POST',
+                        data: {categoryId: parentEl.attr('id'), categoryName: inputEl.val()},
+                        success: function (res) {
+                            if (res.error) {
+                                window.location.reload();
+                            }
+                        },
+                        error: function () {
+                            window.location.reload();
+                        }
+                    });
+                },
+                addNewCat: function (e) {
+                    var lastEl     = $('.action-dropdown-menu-item-last'),
+                        d          = new Date(),
+                        categoryId = d.getTime() + '_' + d.getMilliseconds(),
+                        viewHtml   = this.getViewHtml(categoryId, '');
+
+                    window.event.stopPropagation();
+                    window.event.preventDefault();
+                    lastEl.before(viewHtml);
+                    $(e).hide();
+                },
+                deleteCat: function (e) {
+                    var self        = this,
+                        parentEl    = $(e).parents('li'),
+                        activeCatId = activeCatEl.attr('id'),
+                        categoryId  = parentEl.attr('id');
+
+                    delete self.nameArray[categoryId];
+                    parentEl.remove();
+                    if (activeCatId === categoryId) {
+                        $('a.default-category').trigger('click');
+                    }
+                    this.moveCopyCheck(activeCatId);
+                    $.ajax({
+                        url: '<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/category', ['_current' => true, 'form_key' => $block->getFormKey()]) ?>',
+                        method: 'POST',
+                        data: {categoryId: categoryId, delete: true},
+                        success: function (res) {
+                            if (res.error) {
+                                window.location.reload();
+                            }
+                        },
+                        error: function () {
+                            window.location.reload();
+                        }
+                    });
+                },
+                changeCat: function (e) {
+                    var parentEl = $(e).parents('li'),
+                         viewId  = parentEl.attr('id');
+
+                    window.event.stopPropagation();
+                    window.event.preventDefault();
+                    activeCatEl.text(parentEl.find('a').text());
+                    activeCatEl.attr('id', viewId);
+                    $('.mp-wishlist-category.multiple-view').removeClass('_active');
+                    wishlistGridJsObject.addVarToUrl('categoryId', viewId);
+                    wishlistControl.reload();
+                    if (parentEl.hasClass('un-remove-able')) {
+                        bodyEl.addClass('un-remove-able');
+                    } else {
+                        bodyEl.removeClass('un-remove-able');
+                    }
+                    this.moveCopyCheck(viewId)
+                },
+                addNewProducts: function () {
+                    var wlModal = $('#add-wishlist-modal'),
+                         options = {
+                            'type': 'popup',
+                            'title': $t('Chose Product(s)'),
+                            'responsive': true,
+                            'innerScroll': true,
+                            'buttons': []
+                        };
+
+                    if (!wlModal.length || wlModal.html().trim() === '') {
+                        $.ajax({
+                            url: '<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/editwishlist', ['form_key' => $block->getFormKey()]) ?>',
+                            method: 'POST',
+                            data: {},
+                            showLoader: true,
+                            success: function (res) {
+                                $('#add-wishlist-modal').html(res);
+                                modal(options, $('.add-wishlist-modal')).openModal();
+                            },
+                            error: function () {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        $('.add-wishlist-modal').modal("openModal");
+                    }
+                },
+                editCatEnterObs: function () {
+                    categoryTableEl.on('keyup', '.action-dropdown-menu-item-edit input', function (e) {
+                        if (e.keyCode !== 13) {
+                            return;
+                        }
+                        $(this).siblings('.action-submit').trigger('click');
+                    });
+                }
+            };
+            window.categoryControl.init();
+            selectCatModal.on('loadCategory', function () {
+                var html = '';
+
+                _.each(categoryControl.nameArray, function (item, index) {
+                    var selected = index === '<?= /** @noEscape */  $defaultCategory->getId() ?>' ? ' selected' : '';
+
+                    if (activeCatEl.attr('id') === index || index === 'all') {
+                        return;
+                    }
+                    html += '<option value="' + index + '"' + selected + '>' + item + '</option>'
+                });
+                html += '<option value="new">' + $t('New Wish List') + '</option>';
+                catModalSelectEl.html(html);
+                $('.to-new-wishlist').hide();
+                $('#new-category').val('');
+            });
+
+            bodyEl.on('click', function (e) {
+                if (!$(e.target).parents().hasClass('mp-wishlist-category')) {
+                    categoryTableEl.removeClass('_active');
+                    saveCategoryEl.show();
+                    categoryTableEl.find('li').removeClass('_edit');
+                    categoryTableEl.find('.undefined').remove();
+                }
+            });
+
+            bodyEl.on('click', '.modal-slide._show button.action-primary', function () {
+                $('.modals-overlay').removeAttr('style');
+            });
+            var jsObject = $('#wishlistGrid').data('gridObject');
+            if(jsObject){
+                jsObject.addVarToUrl('id', '<?= /** @noEscape */ $customerId ?>',);
+                jsObject.addVarToUrl('categoryId', activeCatEl.attr('id'));
+                productConfigure.current.listType = 'wishlist';
+            }
+            bodyEl.on('gridinit', '#wishlistGrid', function (self) {
+                var jsObject = $(self.currentTarget).data('gridObject');
+                jsObject.addVarToUrl('id', '<?= /** @noEscape */  $customerId ?>',);
+                jsObject.addVarToUrl('categoryId', activeCatEl.attr('id'));
+                productConfigure.current.listType = 'wishlist';
+            });
+        })
+    </script>
+    <style>
+        .add-wishlist-modal .data-grid .action-configure {
+            float: right;
+        }
+
+        .add-wishlist-modal .data-grid .action-configure.disabled,
+        .all-wishlist-item #wishlistGrid .col-action .move,
+        .all-wishlist-item #wishlistGrid .col-action .copy,
+        .all-wishlist-item #wishlistGrid_massaction-select option[value="copy"],
+        .all-wishlist-item #wishlistGrid_massaction-select option[value="move"] {
+            display: none;
+        }
+
+        .add-wishlist-modal .admin__data-grid-wrap {
+            overflow: unset;
+        }
+
+        .add-wishlist-modal button.action.primary {
+            position: absolute;
+            top: 20px;
+            right: 90px;
+        }
+    </style>
+<?php endif; ?>

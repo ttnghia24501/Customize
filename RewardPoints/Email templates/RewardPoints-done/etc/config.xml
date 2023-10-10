@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <rewardpoints>
+            <module>
+                <change_log>reward-points</change_log>
+            </module>
+            <general>
+                <enabled>1</enabled>
+                <account_navigation_label>My Points and Rewards</account_navigation_label>
+                <point_label>point</point_label>
+                <plural_point_label>points</plural_point_label>
+                <display_point_label>1</display_point_label>
+                <zero_amount>zero point</zero_amount>
+                <show_point_icon>1</show_point_icon>
+                <icon>default/point.png</icon>
+                <redirect_after_login>1</redirect_after_login>
+                <landing_page>
+                    <choose_landing_page>mp_reward_landing_page</choose_landing_page>
+                    <landing_page_in_footer>1</landing_page_in_footer>
+                    <landing_page_label>Reward Points</landing_page_label>
+                </landing_page>
+                <high_light>
+                    <cart>1</cart>
+                    <checkout>1</checkout>
+                    <color>#12a196</color>
+                </high_light>
+            </general>
+            <earning>
+                <round_method>round</round_method>
+                <earn_from>0</earn_from>
+                <earn_shipping>0</earn_shipping>
+                <point_refund>1</point_refund>
+                <sales_earn>
+                    <earn_point_after_invoice_created>0</earn_point_after_invoice_created>
+                    <point_expired>0</point_expired>
+                </sales_earn>
+                <earning_point_with_spend>0</earning_point_with_spend>
+                <notice_reward_to_guest>1</notice_reward_to_guest>
+                <message_to_guest>Please login or create an account for a chance to receive reward points when you shop at our store.</message_to_guest>
+                <type_max_earning_point>0</type_max_earning_point>
+            </earning>
+            <spending>
+                <discount_label>Reward Points</discount_label>
+                <minimum_balance>0</minimum_balance>
+                <maximum_point_type>0</maximum_point_type>
+                <maximum_point_per_order>0</maximum_point_per_order>
+                <spend_on_tax>0</spend_on_tax>
+                <spend_on_ship>0</spend_on_ship>
+                <restore_point_after_refund>1</restore_point_after_refund>
+                <use_max_point>0</use_max_point>
+            </spending>
+            <display>
+                <top_page>0</top_page>
+                <hide_top_link>1</hide_top_link>
+                <dashboard_page>1</dashboard_page>
+                <product_page>1</product_page>
+                <category_page>1</category_page>
+                <mini_cart>1</mini_cart>
+                <checkout_cart_page>1</checkout_cart_page>
+            </display>
+            <email>
+                <enable>1</enable>
+                <sender>general</sender>
+                <subscribe_by_default>1</subscribe_by_default>
+                <update>
+                    <enabled>1</enabled>
+                    <template>rewardpoints_email_update_template</template>
+                </update>
+                <expire>
+                    <enabled>1</enabled>
+                    <before_days>7</before_days>
+                    <template>rewardpoints_email_expire_template</template>
+                </expire>
+            </email>
+        </rewardpoints>
+    </default>
+</config>

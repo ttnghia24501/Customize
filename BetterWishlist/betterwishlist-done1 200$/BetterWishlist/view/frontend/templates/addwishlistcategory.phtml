@@ -1,0 +1,48 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/** @var $block \Magento\Framework\View\Element\Template */
+$categoryId = $block->getRequest()->getParam('categoryId');
+?>
+<?php if ($categoryId) : ?>
+    <script>
+        require([
+            'jquery'
+        ], function ($) {
+            $('#product_addtocart_form').append('<input type="hidden" name="fromCategoryId" value="<?= /** @noEscape */ $categoryId ?>">');
+            $('body').on('click', 'a.action.towishlist.updated', function (e) {
+                var url     = '<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/updateitemoptions', ['form_key' => $block->getFormKey()]) ?>',
+                    data    = $(this).data('post').data,
+                    formKey = $('input[name="form_key"]').val();
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (formKey) {
+                    data.form_key = formKey;
+                }
+                data.fromCategoryId = $('#product_addtocart_form input[name="fromCategoryId"]').val();
+                url += '?' + $.param(data);
+                window.location.href = url;
+            })
+        })
+    </script>
+<?php endif; ?>

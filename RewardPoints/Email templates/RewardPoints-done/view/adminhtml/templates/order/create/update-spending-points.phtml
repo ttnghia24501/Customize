@@ -1,0 +1,81 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\RewardPoints\Block\Adminhtml\Order\Create\SpendingPoints;
+use Mageplaza\RewardPoints\Helper\Data;
+
+/** @var SpendingPoints $block */
+?>
+<?php if ($block->getCustomerId()) : ?>
+    <div class="admin__page-section-title" style="margin-top: 30px">
+        <span class="title"><?= $block->escapeHtml(__('Spend Your Points')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <dl class="admin__order-mp_reward_spend_points">
+            <div id="rewardpoints" data-bind="scope: 'rewardpoints'">
+                <div class="messages" id="mp-reward-message"></div>
+                <div class="payment-option _collapsible opc-payment-additional reward">
+                    <div class="reward-points-payment-content payment-checkout-content">
+                        <div class="reward-box">
+                            <div class="points">
+                                <span></span>
+                            </div>
+                            <div class="reward-rule-select">
+                                <div class="label">
+                                    <strong><?= $block->escapeHtml(__('Choose how many points to spend')) ?></strong>
+                                </div>
+                                <div class="content">
+                                    <span class="select-rule"></span>
+                                    <select id="reward-spending-rules"></select>
+                                </div>
+                            </div>
+                            <div class="reward-spending-slider">
+                                <div class="range-slider">
+                                    <input type="text" class="reward-range-slider" value=""/>
+                                </div>
+                                <div class="extra-controls" style="text-align: left">
+                                    <span><?= $block->escapeHtml(__('You will spend')) ?></span>
+                                    <span>
+                                            <input type="text" class="mp-spent"/>
+                                        </span>
+                                </div>
+                                <div class="field choice" style="text-align: left;">
+                                    <input type="checkbox" id="reward-use-max-point"/>
+                                    <label
+                                        for="reward-use-max-point"><?= $block->escapeHtml(__('Maximize my discount with points')) ?></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dl>
+    </div>
+    <script type="text/javascript">
+        require(['Mageplaza_RewardPoints/js/order/create/spending-points'], function (Spending) {
+            var config = {
+                'rewardSpendingConfig': <?= /** noEscape */ Data::jsonEncode($block->getRewardSpendingConfig()) ?>
+            };
+
+            Spending(config);
+        });
+    </script>
+<?php endif; ?>

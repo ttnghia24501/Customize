@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/pdf_file.xsd">
+    <totals>
+        <total name="mp_earn">
+            <model>Mageplaza\RewardPoints\Model\Sales\Pdf\Earned</model>
+            <title translate="true">Earned</title>
+            <source_field>mp_earn</source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>650</sort_order>
+        </total>
+        <total name="mp_spent">
+            <model>Mageplaza\RewardPoints\Model\Sales\Pdf\Spent</model>
+            <title translate="true">Spent</title>
+            <source_field>mp_spent</source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>660</sort_order>
+        </total>
+        <total name="mp_reward_discount">
+            <model>Mageplaza\RewardPoints\Model\Sales\Pdf\RewardDiscount</model>
+            <title translate="true">Reward Points</title>
+            <source_field>mp_reward_discount</source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>670</sort_order>
+        </total>
+    </totals>
+</config>

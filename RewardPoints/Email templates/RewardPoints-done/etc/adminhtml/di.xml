@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="mprewardCanCreditmemo" type="Mageplaza\RewardPoints\Plugin\Order\View\CanCreditmemo"/>
+    </type>
+    <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="mpreward_transaction_listing" xsi:type="array">
+                    <item name="created_at" xsi:type="string">created_at</item>
+                    <item name="expiration_date" xsi:type="string">expiration_date</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Create\Data">
+        <plugin name="mp_reward_order_create_data" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Order\OrderCreateData"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Items\AbstractItems">
+        <plugin name="mp_reward_update_reward_item" type="Mageplaza\RewardPoints\Plugin\Order\Item\Adminhtml\RewardItemRender"/>
+    </type>
+    <!--  Add Column Reward Discount In Order  -->
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Items">
+        <plugin name="mp_reward_order_view_items" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Order\View\Items"/>
+    </type>
+
+    <!--  Add Column Reward Discount In Invoice  -->
+    <type name="Magento\Sales\Block\Adminhtml\Order\Invoice\Create\Items">
+        <plugin name="mp_reward_invoice_new_items" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Order\Invoice\Create\Items"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Invoice\View\Items">
+        <plugin name="mp_reward_invoice_view_items" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Order\Invoice\View\Items"/>
+    </type>
+
+    <!--  Add Column Reward Discount In Creditmemo  -->
+    <type name="Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Items">
+        <plugin name="mp_reward_creditmemo_new_items" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Order\Creditmemo\Create\Items"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Creditmemo\View\Items">
+        <plugin name="mp_reward_creditmemo_view_items" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Order\Creditmemo\View\Items"/>
+    </type>
+
+    <type name="Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer">
+        <plugin name="mp_reward_item_renderer" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Items\Renderer\DefaultRenderer"/>
+    </type>
+
+    <type name="Magento\Weee\Block\Adminhtml\Items\Price\Renderer">
+        <plugin name="mp_reward_order_total" type="Mageplaza\RewardPoints\Plugin\Block\Adminhtml\Items\Price\Renderer"/>
+    </type>
+
+    <type name="Magento\Ui\Model\Export\ConvertToCsv">
+        <plugin name="mp_reward_export_value_csv" type="Mageplaza\RewardPoints\Plugin\Ui\Model\Export\ConvertToCsv"/>
+    </type>
+</config>

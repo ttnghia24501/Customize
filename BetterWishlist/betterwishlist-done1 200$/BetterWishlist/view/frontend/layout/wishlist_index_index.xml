@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <css src="Mageplaza_BetterWishlist::css/mptcv-style.css" />
+    </head>
+    <body>
+        <referenceBlock name="customer.wishlist">
+            <referenceBlock name="customer.wishlist.items">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Mageplaza_BetterWishlist::item/list.phtml</argument>
+                </action>
+            </referenceBlock>
+            <action method="setTemplate" ifconfig="mageplaza_better_wishlist/general/enabled">
+                <argument name="template" xsi:type="string">Mageplaza_BetterWishlist::view.phtml</argument>
+            </action>
+            <block class="Mageplaza\BetterWishlist\Block\Customer\Wishlist\Category" name="mp.wishlist.category"
+                   before="-" template="Mageplaza_BetterWishlist::category.phtml"
+                   ifconfig="mageplaza_better_wishlist/general/enabled">
+                <block class="Mageplaza\BetterWishlist\Block\Customer\Sharing" name="wishlist_sharing"
+                       template="Mageplaza_BetterWishlist::sharing.phtml"/>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="customer.wishlist.item.actions">
+            <block class="Magento\Wishlist\Block\Customer\Wishlist\Item\Column"
+                   name="mp.customer.wishlist.item.edit.move"
+                   template="Mageplaza_BetterWishlist::item/column/move.phtml" after="customer.wishlist.item.edit"
+                   ifconfig="mageplaza_better_wishlist/general/enabled"/>
+            <block class="Magento\Wishlist\Block\Customer\Wishlist\Item\Column"
+                   name="mp.customer.wishlist.item.edit.copy"
+                   template="Mageplaza_BetterWishlist::item/column/copy.phtml" after="customer.wishlist.item.edit"
+                   ifconfig="mageplaza_better_wishlist/general/enabled"/>
+            <referenceBlock name="customer.wishlist.item.remove">
+                <action method="setTemplate" ifconfig="mageplaza_better_wishlist/general/enabled">
+                    <argument name="template" xsi:type="string">Mageplaza_BetterWishlist::item/column/delete.phtml
+                    </argument>
+                </action>
+            </referenceBlock>
+        </referenceBlock>
+        <referenceBlock name="customer.wishlist.item.cart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Mageplaza_BetterWishlist::item/column/cart.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

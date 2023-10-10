@@ -1,0 +1,75 @@
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<!--@subject {{trans "Your reward points at %store_name is about to expire!" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var point_amount":"Transaction Amount",
+"var status":"Transaction Status",
+"var point_balance":"Current Balance",
+"var point_spent":"Point Spent",
+"var comment":"Transaction Comment",
+"var expiration_date":"Transaction Expiration Date",
+"var customer_name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+    <tr>
+        <td align="center" valign="top" style="padding:20px 0 20px 0">
+            <table>
+                <tr>
+                    <td align="center" valign="top">
+                        <table cellspacing="0" cellpadding="0" border="0" width="650">
+                            <tr>
+                                <td valign="top">
+                                    <p>
+                                        <strong>{{trans "Dear %name," name=$customer_name}}</strong><br/>
+                                        <span>{{trans "We would like to inform you that your transaction will be expired after %date" date=$expiration_date}}</span>
+                                        <span>{{trans "You should also note that if your earned points is expired, your rewards will become invalid.}}</span>
+                                        <span>{{trans 'Please check more details <a href="%reward_url">here</a>.' reward_url=$this.getUrl($store,'customer/rewards',[_nosid:1]) |raw}}</span>
+                                    </p>
+                                    <p>
+                                        <strong>{{trans "The transaction detail"}}</strong><br/>
+                                        <strong>{{trans "Transaction amount:"}}</strong>&nbsp;<span>{{trans "%amount point(s)" amount=$point_amount}}</span><br/>
+                                        {{depend point_spent}}
+                                        <strong>{{trans "Transaction amount used:"}}</strong>&nbsp;<span>{{var point_spent}}</span><br/>
+                                        {{/depend}}
+                                        <strong>{{trans "Transaction
+                                            status:"}}</strong>&nbsp;<span>{{var status}}</span><br/>
+                                        <strong>{{trans "Current balance:"}}</strong>&nbsp;<span>{{trans "%balance point(s)" balance=$point_balance}}</span><br/>
+                                        {{depend comment}}
+                                        <strong>{{trans "Transaction
+                                            comment:"}}</strong>&nbsp;<span>{{var comment}}</span><br/>
+                                        {{/depend}}
+                                    </p>
+                                    <p>{{trans "Feel free to send us a word if you need any further helps."}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

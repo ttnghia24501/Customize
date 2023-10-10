@@ -1,0 +1,113 @@
+{
+    "mageplaza_productfeed_feed": {
+        "column": {
+            "feed_id": true,
+            "name": true,
+            "status": true,
+            "store_id": true,
+            "file_name": true,
+            "file_type": true,
+            "template_html": true,
+            "field_separate": true,
+            "field_around": true,
+            "include_header": true,
+            "fields_map": true,
+            "conditions_serialized": true,
+            "category_map": true,
+            "execution_mode": true,
+            "frequency": true,
+            "cron_run_day_of_week": true,
+            "cron_run_day_of_month": true,
+            "cron_run_time": true,
+            "last_cron": true,
+            "delivery_enable": true,
+            "protocol": true,
+            "passive_mode": true,
+            "host_name": true,
+            "user_name": true,
+            "password": true,
+            "directory_path": true,
+            "campaign_source": true,
+            "campaign_medium": true,
+            "campaign_name": true,
+            "campaign_term": true,
+            "campaign_content": true,
+            "last_generated": true,
+            "created_at": true,
+            "updated_at": true,
+            "compress_file": true,
+            "private_key_path": true,
+            "mapping": true,
+            "preview_limit": true,
+            "click": true,
+            "impression": true,
+            "ctr": true,
+            "request_url": true,
+            "headers": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageplaza_productfeed_defaulttemplate": {
+        "column": {
+            "id": true,
+            "name": true,
+            "title": true,
+            "file_type": true,
+            "template_html": true,
+            "field_separate": true,
+            "field_around": true,
+            "include_header": true,
+            "fields_map": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageplaza_productfeed_history": {
+        "column": {
+            "id": true,
+            "feed_id": true,
+            "feed_name": true,
+            "status": true,
+            "delivery": true,
+            "type": true,
+            "file": true,
+            "product_count": true,
+            "success_message": true,
+            "error_message": true,
+            "created_at": true
+        },
+        "index": {
+            "MAGEPLAZA_PRODUCTFEED_HISTORY_FEED_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGEPLAZA_PRDFEED_HISTORY_FEED_ID_MAGEPLAZA_PRDFEED_FEED_FEED_ID": true
+        }
+    },
+    "mageplaza_productfeed_reports": {
+        "column": {
+            "report_id": true,
+            "feed_id": true,
+            "order_id": true,
+            "ordered_quantity": true,
+            "revenue": true,
+            "refunded": true,
+            "discount": true,
+            "tax": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGEPLAZA_PRDFEED_REPORTS_FEED_ID_MAGEPLAZA_PRDFEED_FEED_FEED_ID": true,
+            "MAGEPLAZA_PRODUCTFEED_REPORTS_ORDER_ID_SALES_ORDER_ENTITY_ID": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "mp_productfeed_key": true
+        }
+    }
+}

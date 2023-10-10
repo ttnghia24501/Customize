@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="creditmemo_totals">
+            <block class="Mageplaza\RewardPoints\Block\Sales\Order\Total" name="mmpeward.sales.order.total"/>
+        </referenceBlock>
+        <referenceContainer name="submit_before">
+            <block class="Mageplaza\RewardPoints\Block\Sales\Order\RefundPoint" name="mmpeward.sales.order.refund.point"
+                   template="Mageplaza_RewardPoints::order/create/creditmemo/refund.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

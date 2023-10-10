@@ -1,0 +1,88 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/** @var \Mageplaza\RewardPoints\Block\Account\Dashboard\Transaction $block */
+
+/** @var \Mageplaza\RewardPoints\Model\ResourceModel\Transaction\Collection $transactions */
+$transactions = $block->getTransactions();
+?>
+<div class="block block-reward-dashboard-transaction">
+    <?php if ($block->getIsRecent()) : ?>
+        <div class="block-title order">
+            <strong><?= $block->escapeHtml(__('Recent Transactions')) ?></strong>
+            <?php if ($transactions->getSize()) : ?>
+                <a class="action view" href="<?= /** @noEscape */
+                $block->getUrl('customer/rewards/transaction') ?>">
+                    <span><?= $block->escapeHtml(__('View All')) ?></span>
+                </a>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+    <div class="block-content">
+        <?php if ($transactions->getSize()) : ?>
+            <div class="table-wrapper transactions-recent">
+                <table class="data table table-transaction-items recent" id="rewards-transaction-table">
+                    <caption class="table-caption"><?= $block->escapeHtml(__('Recent Transactions')) ?></caption>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="col id"><?= $block->escapeHtml(__('Transaction #')) ?></th>
+                        <th scope="col" class="col created"><?= $block->escapeHtml(__('Date')) ?></th>
+                        <th scope="col" class="col comment"><?= $block->escapeHtml(__('Comment')) ?></th>
+                        <th scope="col" class="col amount"><?= $block->escapeHtml(__('Amount')) ?></th>
+                        <th scope="col" class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+                        <th scope="col" class="col expire"><?= $block->escapeHtml(__('Expire Date')) ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($transactions as $transaction) : ?>
+                        <tr>
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Transaction #')) ?>"
+                                class="col id"><?= /** @noEscape */
+                                $transaction->getId() ?></td>
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>"
+                                class="col created"><?= /** @noEscape */
+                                $block->formatDate($transaction->getCreatedAt()) ?></td>
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Comment')) ?>"
+                                class="col comment"><?= /** @noEscape */
+                                $transaction->getTitle() ?></td>
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Amount')) ?>"
+                                class="col amount"><?= /** @noEscape */
+                                $transaction->getPointAmount() ?></td>
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>"
+                                class="col status"><?= /** @noEscape */
+                                $transaction->getStatusLabel() ?></td>
+                            <td data-th="<?= $block->escapeHtmlAttr(__('Expire Date')) ?>"
+                                class="col expire"><?= /** @noEscape */ $transaction->getExpirationDate()
+                                    ? $block->escapeHtml($block->formatDate($transaction->getExpirationDate())) : $block->escapeHtml(__('N/A')) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php if ($block->getPagerHtml()) : ?>
+                <div class="reward-transactions-toolbar toolbar bottom"><?= /** @noEscape */
+                    $block->getPagerHtml(); ?></div>
+            <?php endif ?>
+        <?php else : ?>
+            <div class="message info empty"><span><?= $block->escapeHtml(__('You have created no transactions.')) ?></span></div>
+        <?php endif; ?>
+    </div>
+</div>

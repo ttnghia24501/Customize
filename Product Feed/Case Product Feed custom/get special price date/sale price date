@@ -1,0 +1,7 @@
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$dateTimeManager = $objectManager->create('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+$specialPriceFromDate = $dateTimeManager->date(new \DateTime($oriProduct->getSpecialFromDate()))->format('Y-m-d');
+$specialPriceToDate   = $dateTimeManager->date(new \DateTime($oriProduct->getSpecialToDate()))->format('Y-m-d');
+            
+$product->setData('special_from_date', $specialPriceFromDate);
+$product->setData('special_to_date', $specialPriceToDate);

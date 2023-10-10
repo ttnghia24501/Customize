@@ -1,0 +1,202 @@
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_wishlistView
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+#mpwishlist-table-view thead tr td {
+    text-align: center;
+    line-height: 1.6rem;
+    font-weight: 700;
+}
+
+#mpwishlist-table-view tbody tr td {
+    margin: auto;
+}
+
+#mpwishlist-table-view tbody tr {
+    position: relative;
+}
+
+#mpwishlist-table-view {
+    font-size: 1.4rem;
+}
+
+.mpwishlist-product-image {
+    width: 60px;
+    display: block;
+}
+
+.mpwishlist-product-qty input {
+    width: 35px;
+}
+
+.mpwishlist-add-to-cart-button {
+    width: 150px;
+}
+.mpwishlist-product-option {
+    text-align: left;
+}
+.mpwishlist-move-button {
+    width: 50px;
+}
+.mpwishlist-remove-button {
+    width: 100px;
+}
+
+.mpwishlist-product-image,
+.mpwishlist-product-sku,
+.mpwishlist-product-stock,
+.mpwishlist-product-name,
+.mpwishlist-product-qty,
+.mpwishlist-product-description,
+.mpwishlist-product-price,
+.mpwishlist-product-review,
+.mpwishlist-add-to-cart-button,
+.mpwishlist-move-button,
+.mpwishlist-remove-button {
+    text-align: center;
+}
+
+.mpwishlist-product-option > .mp-product-attribute > span,
+.mpwishlist-product-option > .mp-product-customizable > span {
+    font-weight: 700;
+}
+
+.mpwishlist-notify-error {
+    max-width: 500px;
+    padding: 10px 25px;
+    background-color: #FAE5E5;
+    color: #B30300;
+    position: absolute;
+    left: 285px;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+#mpwishlist-popup {
+    background: white;
+    display: none;
+}
+
+.mpwishlist-popup-click {
+    cursor: pointer;
+}
+
+#mpwishlist-popup .column {
+    width: 100%;
+}
+
+.mpwishlistview-list-options {
+    list-style-type: none;
+    margin-top: 15px;
+    padding-left: 0;
+}
+
+.mpwishlistview-list-options li span {
+    font-weight: 700;
+}
+.mpwishlist-popup .columns .column.main {
+    width: 100%;
+}
+
+.mpwishlist-popup #maincontent .product-info-main {
+    width: 100%;
+}
+
+.mpwishlist-product-option #downloadable-links-list {
+    margin-top: 15px;
+}
+
+.mpwishlist-product-option #downloadable-links-list .field {
+    border-bottom: none;
+}
+
+.mpwishlist-select {
+    padding: 15px 20px !important;
+    margin-top: 50px;
+}
+
+.mptcv-table thead {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.mptcv-table-image {
+    max-width: 100px;
+}
+
+.mptcv-table-price, .mptcv-table-subtotal, .mptcv-table-status {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.mptcv-success {
+    color: #2DB14B;
+}
+
+.mptcv-errors {
+    color: #F31B24;
+}
+
+.mptcv-table-action {
+    text-align: center;
+}
+
+.mptcv-table-action button {
+    padding: initial;
+    font-size: 2rem;
+    margin: 3px 30px;
+    height: 55px;
+    width: 210px;
+    background: #EB5103;
+    color: #ffffff;
+    box-shadow: none;
+    border-radius: 5px;
+    border: none;
+    white-space: nowrap;
+}
+
+#bundleSummary {
+    float: left;
+    padding: 0;
+}
+
+.mptcv-options-hide{
+    display: none;
+}
+.mptcv-options-hide{
+    display: none;
+}
+.mpwishlist-product-review {
+    max-width: 100px;
+}
+
+.mpwishlist-product-review .product-reviews-summary .reviews-actions .action.add {
+    white-space: normal;
+}
+
+.mpwishlist-product-option {
+    min-width: 150px;
+}
+
+legend.legend.links-title{
+    display: none;
+}
+.fieldset:last-child{
+    margin-bottom: 0;
+}

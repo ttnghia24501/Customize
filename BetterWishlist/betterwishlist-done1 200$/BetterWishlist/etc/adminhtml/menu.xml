@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mageplaza_BetterWishlist::mp_wishlist" title="Better Wishlist" translate="title" module="Mageplaza_BetterWishlist" sortOrder="60" parent="Magento_Reports::report" resource="Mageplaza_BetterWishlist::mp_wishlist"/>
+        <add id="Mageplaza_BetterWishlist::wishlist_report" title="Wishlist Report" translate="title" module="Mageplaza_BetterWishlist" sortOrder="10" parent="Mageplaza_BetterWishlist::mp_wishlist" action="mpwishlist/wishlist/index" resource="Mageplaza_BetterWishlist::wishlist_report"/>
+        <add id="Mageplaza_BetterWishlist::configuration" title="Configuration" translate="title" module="Mageplaza_BetterWishlist" sortOrder="20" parent="Mageplaza_BetterWishlist::mp_wishlist" action="adminhtml/system_config/edit/section/mageplaza_better_wishlist" resource="Mageplaza_BetterWishlist::configuration" />
+    </menu>
+</config>

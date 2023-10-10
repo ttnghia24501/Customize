@@ -1,0 +1,86 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\ProductFeed\Block\Adminhtml\RenderReport;
+
+/** @var RenderReport $block */
+
+$listFeed    = $block->getListFeed();
+$priceHelper = $block->getPriceHelper();
+?>
+
+<?php if ($listFeed->getSize()): ?>
+<table class="data-grid">
+    <thead>
+        <tr class="data-row">
+            <th class="data-grid-th"><?= $block->escapeHtml(__('ID')) ?></th>
+            <th class="data-grid-th"><?= $block->escapeHtml(__('Name')) ?></th>
+            <th class="data-grid-th"><?= $block->escapeHtml(__('Ordered Item Quantity')) ?></th>
+            <th class="data-grid-th"><?= $block->escapeHtml(__('Order Count')) ?></th>
+            <th class="data-grid-th"><?= $block->escapeHtml(__('Total Revenue')) ?></th>
+            <th class="data-grid-th"><?= $block->escapeHtml(__('Refunded')) ?></th>
+            <th class="data-grid-th"><?= $block->escapeHtml(__('Discount')) ?></th>
+            <th class="data-grid-th"><?= $block->escapeHtml(__('Tax')) ?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($listFeed as $feed): ?>
+        <tr class="data-row">
+            <?php
+                $reportData   = $block->getReportData($feed->getId());
+                $orderItemQty = $block->formatQty($reportData['order_item_qty'] ?: 0);
+                $orderCount   = $reportData['order_count'] ?: 0;
+                $feedRevenue  = $block->formatPrice($reportData['feed_revenue'] - $reportData['feed_refund']);
+                $feedRefund   = $block->formatPrice($reportData['feed_refund']);
+                $feedDiscount = $block->formatPrice($reportData['feed_discount']);
+                $feedTax      = $block->formatPrice($reportData['feed_tax']);
+            ?>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($feed->getId()); ?></div>
+            </td>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($feed->getName()); ?></div>
+            </td>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($orderItemQty); ?></div>
+            </td>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($orderCount); ?></div>
+            </td>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($feedRevenue); ?></div>
+            </td>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($feedRefund); ?></div>
+            </td>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($feedDiscount); ?></div>
+            </td>
+            <td>
+                <div class="data-grid-cell-content"><?= $block->escapeHtml($feedTax); ?></div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php else: ?>
+<h3 class="no-data"><?= $block->escapeHtml(__('No data to display')) ?></h3>
+<?php endif ?>

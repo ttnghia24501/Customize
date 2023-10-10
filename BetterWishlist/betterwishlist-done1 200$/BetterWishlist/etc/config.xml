@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mageplaza_better_wishlist>
+            <general>
+                <enabled>1</enabled>
+                <remove_after_add_to_cart>0</remove_after_add_to_cart>
+                <enabled_multi_wishlist>1</enabled_multi_wishlist>
+                <show_all_item>1</show_all_item>
+                <default_wishlist><![CDATA[{"option":{"order":{"1549942665116_116":"1"},"value":{"1549942665116_116":{"0":"Default Category"}},"delete":{"1549942665116_116":""}},"default":["1549942665116_116"],"dropdown_attribute_validation":"","dropdown_attribute_validation_unique":""}]]></default_wishlist>
+                <allow_customer_create_wishlist>1</allow_customer_create_wishlist>
+                <limit_number_of_wishlist>5</limit_number_of_wishlist>
+                <font_awesome>1</font_awesome>
+            </general>
+        </mageplaza_better_wishlist>
+    </default>
+</config>

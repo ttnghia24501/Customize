@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!--=========================================== CONFIG =================================================-->
+    <route url="/V1/MpWishList/configs" method="GET">
+        <service class="Mageplaza\BetterWishlist\Api\ConfigRepositoryInterface" method="getConfigs"/>
+        <resources>
+            <resource ref="Mageplaza_BetterWishlist::configuration" />
+        </resources>
+    </route>
+    <!--========================================== BetterWishlist ==========================================-->
+    <route url="/V1/MpWishList/mine/add/:productId/category/:categoryId" method="POST">
+        <service class="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" method="addItemToCategory"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/MpWishList/mine/categories/showItem/:isItems" method="GET">
+        <service class="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" method="getAllCategories"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/MpWishList/mine/categories/:categoryId/showItem/:isItems" method="GET">
+        <service class="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" method="getCategoryById"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/MpWishList/mine/category/create" method="POST">
+        <service class="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" method="createCategory"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/MpWishList/mine/category/edit" method="PUT">
+        <service class="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" method="editCategory"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/MpWishList/mine/category/delete/:categoryId" method="DELETE">
+        <service class="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" method="deleteCategory"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/MpWishList/mine/remove/:productId/category/:categoryId" method="DELETE">
+        <service class="Mageplaza\BetterWishlist\Api\BetterWishlistRepositoryInterface" method="removeItemInCategory"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+</routes>

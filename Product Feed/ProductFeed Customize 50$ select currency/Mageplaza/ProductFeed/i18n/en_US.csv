@@ -1,0 +1,363 @@
+Duplicate,Duplicate
+"Save and Continue Edit","Save and Continue Edit"
+Sync,Sync
+Generate,Generate
+"Category Map","Category Map"
+"Category Mapping","Category Mapping"
+"Product Filter","Product Filter"
+"Conditions (don't add conditions if rule is applied to all products)","Conditions (don't add conditions if rule is applied to all products)"
+"Maximum Product Displayed on Preview Product ","Maximum Product Displayed on Preview Product "
+Conditions,Conditions
+"Delivery Config","Delivery Config"
+Delivery,Delivery
+Protocol,Protocol
+"Passive Mode","Passive Mode"
+"Host Name","Host Name"
+"It can be IP address or host name. You can add port at the end of host name. E.g: ftp.domain.com:22","It can be IP address or host name. You can add port at the end of host name. E.g: ftp.domain.com:22"
+"User Name","User Name"
+Password,Password
+"Private Key File","Private Key File"
+"Directory Path","Directory Path"
+"Full path of a directory. E.g: /var/www/path/to/your-folder/","Full path of a directory. E.g: /var/www/path/to/your-folder/"
+"Request URL","Request URL"
+"Enter the url to send to the HTTP Server, API, GraphQL by sending a request POST, GET,.....<br>E.g : {{magento_base_url}}graphql, ....","Enter the url to send to the HTTP Server, API, GraphQL by sending a request POST, GET,.....<br>E.g : {{magento_base_url}}graphql, ...."
+Headers,Headers
+"Rows separated by line breaks, Keys and Values separated by colon "":"". For example: <br>
+            Content-Type: application/json <br>
+            Content_length: 200","Rows separated by line breaks, Keys and Values separated by colon "":"". For example: <br>
+            Content-Type: application/json <br>
+            Content_length: 200"
+"Test Connection","Test Connection"
+"General Information","General Information"
+Name,Name
+Status,Status
+"Store Views","Store Views"
+"File Name","File Name"
+"Compress File","Compress File"
+"Generated File URL","Generated File URL"
+"Number of exported Products","Number of exported Products"
+"Generated On","Generated On"
+"Generate Config","Generate Config"
+"Execution Mode","Execution Mode"
+Manual,Manual
+Cron,Cron
+"Select <b>Cron</b> to generate the feed automatically. Select <b>Manual</b> to generate the feed manually","Select <b>Cron</b> to generate the feed automatically. Select <b>Manual</b> to generate the feed manually"
+Frequency,Frequency
+"How often the feed is generated","How often the feed is generated"
+Day,Day
+"Day of week","Day of week"
+Date,Date
+"Date of month","Date of month"
+"Cron Run Time","Cron Run Time"
+"Time zone UTC","Time zone UTC"
+General,General
+"Google Analytics","Google Analytics"
+"Campaign Source","Campaign Source"
+"The referrer: (e.g. google, newsletter). Required if use","The referrer: (e.g. google, newsletter). Required if use"
+"Campaign Medium","Campaign Medium"
+"Marketing medium: (e.g. cpc, banner, email)","Marketing medium: (e.g. cpc, banner, email)"
+"Campaign Name","Campaign Name"
+"Product, promo code, or slogan (e.g. spring_sale)","Product, promo code, or slogan (e.g. spring_sale)"
+"Campaign Term","Campaign Term"
+"Identify the paid keywords","Identify the paid keywords"
+"Campaign Content","Campaign Content"
+"Use to differentiate ads","Use to differentiate ads"
+"Google Shopping API","Google Shopping API"
+ID,ID
+Type,Type
+File,File
+"Success Message","Success Message"
+"Error Message","Error Message"
+"Generation time","Generation time"
+Logs,Logs
+"Path of key file","Path of key file"
+"Delete File","Delete File"
+"Product ID","Product ID"
+Sku,Sku
+Price,Price
+"General Product Attributes","General Product Attributes"
+"Price Attributes","Price Attributes"
+"Category Attributes","Category Attributes"
+"Image Attributes","Image Attributes"
+"Stock Attributes","Stock Attributes"
+"Other Attributes","Other Attributes"
+"Product Link","Product Link"
+"Final Price","Final Price"
+"Product Image Link","Product Image Link"
+"Product Category Path","Product Category Path"
+"Product Id","Product Id"
+"Product Qty","Product Qty"
+"Product Mapping","Product Mapping"
+Templates,Templates
+"File Type","File Type"
+"Select a file type for the product feed","Select a file type for the product feed"
+"Default Template","Default Template"
+"Load Template","Load Template"
+"Select a template for the product feed","Select a template for the product feed"
+"Template Content","Template Content"
+"Supports <a href=""https://shopify.github.io/liquid/"" target=""_blank"">Liquid template</a>","Supports <a href=""https://shopify.github.io/liquid/"" target=""_blank"">Liquid template</a>"
+"Field Separate","Field Separate"
+"Field Around By","Field Around By"
+"Include Field Header","Include Field Header"
+"Fields Map","Fields Map"
+Template,Template
+"FEED INFORMATION","FEED INFORMATION"
+Replace,Replace
+Search,Search
+"Replace First","Replace First"
+Slice,Slice
+From,From
+To,To
+Truncate,Truncate
+Count,Count
+"Append Last","Append Last"
+"Truncate Words","Truncate Words"
+Words,Words
+Lowercase,Lowercase
+Ceil,Ceil
+Uppercase,Uppercase
+Capitalize,Capitalize
+"Uppercase first character of each word ","Uppercase first character of each word "
+Append,Append
+Prepend,Prepend
+"At Least","At Least"
+"At Most","At Most"
+"Date Format","Date Format"
+Default,Default
+"Divided By","Divided By"
+Plus,Plus
+Remove,Remove
+Join,Join
+"Join By","Join By"
+Minus,Minus
+Modulo,Modulo
+Times,Times
+Abs,Abs
+"Down Case","Down Case"
+Escape,Escape
+"Escape once","Escape once"
+Floor,Floor
+"Left Trim","Left Trim"
+"Replace new line to <br","Replace new line to <br"
+"Reverse Array","Reverse Array"
+"Right Trim","Right Trim"
+"Array Size","Array Size"
+"Array Sort","Array Sort"
+"Trim Text","Trim Text"
+"Strip Html Tags","Strip Html Tags"
+"Strip New Line","Strip New Line"
+"Unique Id Of Array","Unique Id Of Array"
+"Decode Url","Decode Url"
+"Encode Url","Encode Url"
+"If Empty","If Empty"
+"Format Date","Format Date"
+"Manage Feeds","Manage Feeds"
+"Add New Feed","Add New Feed"
+"Get Access Token","Get Access Token"
+"This feed no longer exists.","This feed no longer exists."
+"Feed Logs","Feed Logs"
+"Something went wrong while deleting for %1.","Something went wrong while deleting for %1."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"The Feed has been deleted.","The Feed has been deleted."
+"The Feed to delete was not found.","The Feed to delete was not found."
+"Feed no longer exits","Feed no longer exits"
+"Something wrong when download file: %1","Something wrong when download file: %1"
+Feed,Feed
+"Edit %1 feed","Edit %1 feed"
+"New Feed","New Feed"
+"Please enable the feed to generate.","Please enable the feed to generate."
+"Something went wrong while generating the Feed. Please try again.","Something went wrong while generating the Feed. Please try again."
+"Please correct the data sent.","Please correct the data sent."
+"Something went wrong while saving the Feed.","Something went wrong while saving the Feed."
+"Please enable the %1 feed to generate.","Please enable the %1 feed to generate."
+"Something went wrong while generating and uploading %1 feed.","Something went wrong while generating and uploading %1 feed."
+"A total of %1 record(s) have been updated.","A total of %1 record(s) have been updated."
+"Something went wrong while updating status for %1.","Something went wrong while updating status for %1."
+"The feed has been saved.","The feed has been saved."
+"Please enable the feed to sync.","Please enable the feed to sync."
+"This feed not allowed to sync","This feed not allowed to sync"
+"%1 feed sync successfully","%1 feed sync successfully"
+"%1 feed sync fail","%1 feed sync fail"
+"Something went wrong while syncing products. Please try again.","Something went wrong while syncing products. Please try again."
+"Please fill Authorized redirect URIs","Please fill Authorized redirect URIs"
+"The Access Token has been saved successfully. You can close this window, then clean cache and refresh configuration page.","The Access Token has been saved successfully. You can close this window, then clean cache and refresh configuration page."
+"Invalid access token. Please try again!","Invalid access token. Please try again!"
+"Grant token not found!","Grant token not found!"
+"%1 feed sync successful","%1 feed sync successful"
+"Something went wrong while generating feed","Something went wrong while generating feed"
+"Cannot refresh access token.","Cannot refresh access token."
+"Please enable Mageplaza_ProductFeed module","Please enable Mageplaza_ProductFeed module"
+"%1 feed has been generated successfully.","%1 feed has been generated successfully."
+"Something went wrong while generating %1 Feed. %2","Something went wrong while generating %1 Feed. %2"
+"%1 feed has been uploaded successfully","%1 feed has been uploaded successfully"
+"Something went wrong while uploading %1 Feed. %2","Something went wrong while uploading %1 Feed. %2"
+"%1 feed generated successful","%1 feed generated successful"
+"%1 feed generated fail","%1 feed generated fail"
+"%1 feed delivery successful","%1 feed delivery successful"
+"%1 feed delivery fail","%1 feed delivery fail"
+"Please check the Delivery information again.","Please check the Delivery information again."
+"Unable to open SFTP connection as %1@%2","Unable to open SFTP connection as %1@%2"
+"Unable to authenticate with server","Unable to authenticate with server"
+"Cannot connect to server. Please try again later.","Cannot connect to server. Please try again later."
+"Please enter the email before send.","Please enter the email before send."
+"Something went wrong while sending Email. %1","Something went wrong while sending Email. %1"
+"Accept %1 value.","Accept %1 value."
+"Insert Variable...","Insert Variable..."
+"ID or SKU","ID or SKU"
+Title,Title
+Brand,Brand
+Description,Description
+Link,Link
+"Image Link","Image Link"
+"Additional Image Links","Additional Image Links"
+Availability,Availability
+Condition,Condition
+"Country of sale","Country of sale"
+Language,Language
+Destinations,Destinations
+"Identifier exists","Identifier exists"
+"GTIN, UPC, EAN, JAN or ISBN","GTIN, UPC, EAN, JAN or ISBN"
+MPN,MPN
+"Shipping Service Name","Shipping Service Name"
+"Promotion Ids","Promotion Ids"
+"Custom label 0","Custom label 0"
+"Custom label 1","Custom label 1"
+"Custom label 2","Custom label 2"
+"Custom label 3","Custom label 3"
+"Custom label 4","Custom label 4"
+"Google Product Category","Google Product Category"
+"Product Type","Product Type"
+"Age Group","Age Group"
+Color,Color
+Gender,Gender
+Size,Size
+Material,Material
+None,None
+Zip,Zip
+Gz,Gz
+Bz,Bz
+Rar,Rar
+Sunday,Sunday
+Monday,Monday
+Tuesday,Tuesday
+Wednesday,Wednesday
+Thursday,Thursday
+Friday,Friday
+Saturday,Saturday
+Success,Success
+Error,Error
+Disabled,Disabled
+"Generate Successfully","Generate Successfully"
+"Generate Error","Generate Error"
+"Delivery Successfully","Delivery Successfully"
+"Delivery Error","Delivery Error"
+"Sync via Cron","Sync via Cron"
+Tab,Tab
+Comma,Comma
+Semi-colon,Semi-colon
+XML,XML
+CSV,CSV
+TXT,TXT
+TSV,TSV
+XLS,XLS
+"Longest Product Path","Longest Product Path"
+"Shortest Product Path","Shortest Product Path"
+SFTP,SFTP
+FTP,FTP
+"HTTP Server","HTTP Server"
+API,API
+GraphQL,GraphQL
+"Stock Status","Stock Status"
+"All Store Views","All Store Views"
+"Preview Products","Preview Products"
+"--Please Select--","--Please Select--"
+"Column Name","Column Name"
+Value,Value
+Add,Add
+"Insert Variable","Insert Variable"
+"Add Filter","Add Filter"
+"Show Product Feed Report","Show Product Feed Report"
+"Ordered Item Quantity","Ordered Item Quantity"
+"Order Count","Order Count"
+"Total Revenue","Total Revenue"
+Refunded,Refunded
+Discount,Discount
+Tax,Tax
+"No data to display","No data to display"
+"Google Shopping API Fields","Google Shopping API Fields"
+"Magento Fields","Magento Fields"
+"Default Value","Default Value"
+"Internal Note","Internal Note"
+"This is a required field.","This is a required field."
+"%store_name sent you a feed generate notify","%store_name sent you a feed generate notify"
+"Store Name: %store_name","Store Name: %store_name"
+"Store Code: %store_code","Store Code: %store_code"
+"Data Feed Activities","Data Feed Activities"
+"This is an automated email send from Mageplaza Product Feed and notice you that activities during generating product feeds","This is an automated email send from Mageplaza Product Feed and notice you that activities during generating product feeds"
+%mes,%mes
+"View Logs","View Logs"
+"Product Feed Revenue Report","Product Feed Revenue Report"
+Close,Close
+"Generate Completed","Generate Completed"
+Ok,Ok
+"Prepare Generate","Prepare Generate"
+"Prepare Products Data","Prepare Products Data"
+"Generate Feed","Generate Feed"
+"Generating Feed...","Generating Feed..."
+Cancel,Cancel
+"Are you sure to stop generate?","Are you sure to stop generate?"
+"Click to each attribute to add filter & insert it to template","Click to each attribute to add filter & insert it to template"
+Loading...,Loading...
+Testing...,Testing...
+"Connection Success","Connection Success"
+"Connection Fail","Connection Fail"
+Delete,Delete
+Attribute,Attribute
+Pattern,Pattern
+"Sync Completed","Sync Completed"
+"Prepare Sync","Prepare Sync"
+Syncing,Syncing
+Finished,Finished
+"Syncing Product...","Syncing Product..."
+"Are you sure to stop?","Are you sure to stop?"
+"Product Feed","Product Feed"
+Enable,Enable
+"Categories Path for Product URLs","Categories Path for Product URLs"
+"Enable Product Feed Report","Enable Product Feed Report"
+"If yes, will display the Product Feed Report in Manage Feeds Grid.","If yes, will display the Product Feed Report in Manage Feeds Grid."
+"Clean Log Every","Clean Log Every"
+"Day(s). If empty or zero, the log will not be cleaned.","Day(s). If empty or zero, the log will not be cleaned."
+"Select Yes to sync the value to google shopping api.","Select Yes to sync the value to google shopping api."
+"Send data every","Send data every"
+Day(s),Day(s)
+"Merchant ID","Merchant ID"
+"Client ID","Client ID"
+"Get Client ID <a href=""https://console.cloud.google.com/apis/credentials/oauthclient"" target=""_bank"">here</a>","Get Client ID <a href=""https://console.cloud.google.com/apis/credentials/oauthclient"" target=""_bank"">here</a>"
+"Client Secret","Client Secret"
+"Get Client Secret <a href=""https://console.cloud.google.com/apis/credentials/oauthclient"" target=""_bank"">here</a>","Get Client Secret <a href=""https://console.cloud.google.com/apis/credentials/oauthclient"" target=""_bank"">here</a>"
+"Authorized Redirect URIs","Authorized Redirect URIs"
+"Copy and paste this value to Authorized Redirect URIs field on google shopping api.","Copy and paste this value to Authorized Redirect URIs field on google shopping api."
+"Please save Client ID, Client Secret, Authorized Redirect URIs before getting Access Token","Please save Client ID, Client Secret, Authorized Redirect URIs before getting Access Token"
+"Email Alert","Email Alert"
+"To avoid sending to spam box, you should install <a href=""https://www.mageplaza.com/magento-2-smtp/"" target=""_blank"">SMTP</a>","To avoid sending to spam box, you should install <a href=""https://www.mageplaza.com/magento-2-smtp/"" target=""_blank"">SMTP</a>"
+"Send to","Send to"
+"Separate by commas (,)","Separate by commas (,)"
+When,When
+"Delete Logs","Delete Logs"
+"Are you sure you want to delete selected logs?","Are you sure you want to delete selected logs?"
+Feeds,Feeds
+Message,Message
+"Delete Feeds","Delete Feeds"
+"Are you sure you want to delete selected Feeds?","Are you sure you want to delete selected Feeds?"
+"Generate Feeds","Generate Feeds"
+"Are you sure you want to generate selected Feeds? It will take a few minutes","Are you sure you want to generate selected Feeds? It will take a few minutes"
+"Change status","Change status"
+Disable,Disable
+Store,Store
+"Latest File","Latest File"
+"Last Generated","Last Generated"
+"Created Date","Created Date"
+Click,Click
+Impression,Impression
+CTR,CTR
+Edit,Edit

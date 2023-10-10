@@ -1,0 +1,58 @@
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+.mp-landing-page-header, .mp-landing-page-content {
+    display: flow-root;
+    text-align: center;
+}
+
+.mp-landing-page-header-content {
+    display: flex;
+}
+
+.mp-landing-page-header-content i {
+    padding-top: 30%;
+}
+
+.mp-landing-page-header-content img {
+    width: 290px;
+    height: 200px;
+}
+
+.mp-landing-page-header .mp-margin-top-20 {
+    margin-top: 20px;
+}
+
+.thumb {
+    height: 500px;
+    background-color: #3e3e3e;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.content {
+    padding-top: 5px;
+    text-align: left;
+}
+
+.content ul {
+    margin: 30px 0;
+}

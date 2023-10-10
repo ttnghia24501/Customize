@@ -1,0 +1,131 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+// @codingStandardsIgnoreFile
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$customerId = $this->getRequest()->getParam('id') ?: 0;
+?>
+<script>
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/confirm",
+        "Magento_Ui/js/modal/modal",
+        "mage/translate",
+        "Magento_Catalog/catalog/product/composite/configure"
+    ], function ($, confirm, modal, $t) {
+        wishlistControl = {
+            reload: function (urlParams) {
+                if (!urlParams) {
+                    urlParams = '';
+                }
+                var url = <?php echo $block->getJsObjectName() ?>.
+                url + 'id/' + <?= $customerId ?> +'/?ajax=true' + urlParams;
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: {form_key: FORM_KEY, reload: 1},
+                    showLoader: true,
+                    complete: function (res) {
+                        $('#' + <?php echo $block->getJsObjectName() ?>.containerId
+                    ).
+                        html(res.responseText);
+                        <?php echo $block->getJsObjectName() ?>.
+                        initGrid();
+                    }
+                });
+                productConfigure.current.listType = 'wishlist';
+                wishlistGrid_massactionJsObject.checkedString = '';
+            },
+
+            configureItem: function (itemId) {
+                productConfigure.setOnLoadIFrameCallback('wishlist', this.cbOnLoadIframe.bind(this));
+                productConfigure.showItemConfiguration('wishlist', itemId);
+                return false;
+            },
+
+            cbOnLoadIframe: function (response) {
+                if (!response.ok) {
+                    return;
+                }
+                this.reload();
+            },
+            moveItem: function (itemId) {
+                var selectModal = $('#category-select-modal');
+                var options = {
+                    'type': 'popup',
+                    'title': $t('Move Item to Wishlist'),
+                    'responsive': true,
+                    'innerScroll': true,
+                    'buttons': [],
+                };
+                $('#action-type').val('move');
+                $('#item-id').val(itemId);
+
+                selectModal.trigger('loadCategory');
+                modal(options, selectModal).openModal();
+                $('#category-select-modal select').trigger('change');
+            },
+            copyItem: function (itemId) {
+                var selectModal = $('#category-select-modal');
+                var options = {
+                    'type': 'popup',
+                    'title': $t('Copy Item to Wishlist'),
+                    'responsive': true,
+                    'innerScroll': true,
+                    'buttons': [],
+                };
+                $('#item-id').val(itemId);
+                $('#action-type').val('copy');
+                selectModal.trigger('loadCategory');
+                modal(options, selectModal).openModal();
+                $('#category-select-modal select').trigger('change');
+            },
+            removeItem: function (itemId) {
+                var self = this;
+
+                confirm({
+                    content: '<?php echo __('Are you sure you want to remove this item?') ?>',
+                    actions: {
+                        confirm: function () {
+                            self.reload('&delete=' + itemId + '&categoryId=' + $('#mp-wishlist-category span').attr('id'));
+                        }
+                    }
+                });
+            }
+        };
+        var categoryId = $('#mp-wishlist-category span').attr('id');
+        productConfigure.addListType(
+            'wishlist',
+            {
+                urlFetch: '<?php echo $block->getUrl('mpwishlist/customer/configure') ?>' + 'categoryId/' + categoryId,
+                urlConfirm: '<?php echo $block->getUrl('mpwishlist/customer/update') ?>' + 'categoryId/' + categoryId
+            }
+        );
+        productConfigure.addListType(
+            'product_to_add', {
+                urlFetch: '<?php echo $block->getUrl('sales/order_create/configureproducttoadd') ?>',
+                urlSubmit: '<?php echo $block->getUrl('mpwishlist/customer/addproducts') ?>'
+            }
+        );
+    });
+</script>

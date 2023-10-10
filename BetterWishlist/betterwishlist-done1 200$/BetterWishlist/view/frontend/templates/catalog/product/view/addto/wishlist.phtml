@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist $block */
+$product        = $block->getProduct();
+$wishlistHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Wishlist\Helper\Data::class);
+$isInWishlist   = $wishlistHelper->isAllow() && $wishlistHelper->getWishlistItemCollection()->getItemByColumnValue('product_id',
+        $product->getId());
+$customClass    = $isInWishlist ? 'custom-color' : '';
+?>
+<?php if ($block->isWishListAllowed()) : ?>
+    <a href="#"
+       class="action towishlist <?= $customClass ?>"
+       data-post='<?= /* @noEscape */
+       $block->getWishlistParams() ?>'
+       data-action="add-to-wishlist"><span><?= $block->escapeHtml(__('Add to Wish List')) ?></span></a>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "addToWishlist": <?= /* @noEscape */
+    $block->getWishlistOptionsJson() ?>
+        }
+    }
+
+</script>

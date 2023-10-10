@@ -1,0 +1,2 @@
+            $description = ltrim(strchr($oriProduct->getDescription(),"}"),"}");
+

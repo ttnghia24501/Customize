@@ -1,0 +1,1 @@
+<time>{{ store.current_time }} </time>

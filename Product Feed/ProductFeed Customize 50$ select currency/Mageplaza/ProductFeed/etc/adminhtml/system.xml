@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="product_feed" translate="label" type="text" sortOrder="300" showInDefault="1">
+            <class>separator-top</class>
+            <label>Product Feed</label>
+            <tab>mageplaza</tab>
+            <resource>Mageplaza_ProductFeed::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_path" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Categories Path for Product URLs</label>
+                    <source_model>Mageplaza\ProductFeed\Model\Config\Source\ProductPath</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="reports" translate="label comment" type="select" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>Enable Product Feed Report</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If yes, will display the Product Feed Report in Manage Feeds Grid.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="clear_log" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Clean Log Every</label>
+                    <validate>validate-number validate-zero-or-greater validate-digits</validate>
+                    <comment>Day(s). If empty or zero, the log will not be cleaned.</comment>
+                </field>
+                <group id="google_shopping" translate="label" type="text" sortOrder="30" showInDefault="1">
+                    <label>Google Shopping API</label>
+                    <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>Select Yes to sync the value to google shopping api.</comment>
+                    </field>
+                    <field id="sync_every" translate="label comment" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Send data every</label>
+                        <validate>validate-number validate-zero-or-greater validate-digits</validate>
+                        <comment>Day(s)</comment>
+                        <depends>
+                            <field id="product_feed/general/google_shopping/enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="merchant_id" translate="label comment" type="obscure" sortOrder="20" showInDefault="1">
+                        <label>Merchant ID</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="product_feed/general/google_shopping/enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="client_id" translate="label comment" type="obscure" sortOrder="30" showInDefault="1">
+                        <label>Client ID</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <comment><![CDATA[Get Client ID <a href="https://console.cloud.google.com/apis/credentials/oauthclient" target="_bank">here</a>]]></comment>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="product_feed/general/google_shopping/enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="client_secret" translate="label comment" type="obscure" sortOrder="40" showInDefault="1">
+                        <label>Client Secret</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <comment><![CDATA[Get Client Secret <a href="https://console.cloud.google.com/apis/credentials/oauthclient" target="_bank">here</a>]]></comment>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="product_feed/general/google_shopping/enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="redirect_URIs" translate="label comment" type="text" sortOrder="50" showInDefault="1">
+                        <label>Authorized Redirect URIs</label>
+                        <comment>Copy and paste this value to Authorized Redirect URIs field on google shopping api.</comment>
+                        <depends>
+                            <field id="product_feed/general/google_shopping/enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="bt_get_access_token" translate="label comment" type="button" sortOrder="60" showInDefault="1">
+                        <frontend_model>Mageplaza\ProductFeed\Block\Adminhtml\System\Config\AccessToken</frontend_model>
+                        <comment>Please save Client ID, Client Secret, Authorized Redirect URIs before getting Access Token</comment>
+                        <depends>
+                            <field id="product_feed/general/google_shopping/enabled">1</field>
+                        </depends>
+                    </field>
+                    <depends>
+                        <field id="product_feed/general/enabled">1</field>
+                    </depends>
+                </group>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="20" showInDefault="1">
+                <label>Email Alert</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[To avoid sending to spam box, you should install <a href="https://www.mageplaza.com/magento-2-smtp/" target="_blank">SMTP</a>]]></comment>
+                </field>
+                <field id="send_to" translate="label comment" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Send to</label>
+                    <comment>Separate by commas (,)</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="events" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>When</label>
+                    <source_model>Mageplaza\ProductFeed\Model\Config\Source\Events</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

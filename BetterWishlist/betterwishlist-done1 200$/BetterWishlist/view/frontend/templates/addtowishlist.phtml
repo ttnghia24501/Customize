@@ -1,0 +1,121 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\BetterWishlist\Block\Customer\Wishlist\Category;
+
+/** @var $block Category */
+$defaultCategoryCollection = $block->getDefaultCategoryCollection($block->getStoreId());
+$categoryCollection        = $block->getCategoryCollection();
+$isEnableMultiWishlist     = $block->isEnableMultiWishlist();
+$isAllowCustomerCreate     = $block->allowCustomerCreateWishlist();
+$limitWishlist             = $block->getLimitWishlist();
+?>
+<?php if ($this->getRequest()->getFullActionName() !== 'wishlist_index_index') : ?>
+    <div id="add-to-wishlist-modal" style="display: none">
+        <input id="item-id" type="hidden">
+        <input id="action-data" type="hidden">
+        <label style="display: block"><?= $block->escapeHtml(__('Select Wishlist')) ?>
+            <select class="select admin__control-select">
+                <?php if ($isEnableMultiWishlist) : ?>
+                    <?php foreach ($defaultCategoryCollection as $item) : ?>
+                        <option value="<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                                <?= $item->getDefault()
+                                    ? ' selected class="default mpwishlist-option-select"'
+                                    : 'class="mpwishlist-option-select"' ?>
+                        ><?= $block->escapeHtml($item->getName()) ?></option>
+                    <?php endforeach; ?>
+                    <?php foreach ($categoryCollection as $item) : ?>
+                        <option value="<?= $block->escapeHtmlAttr($item->getCategoryId()) ?>"
+                                class="mpwishlist-option-select user-defined">
+                            <?= $block->escapeHtml($item->getCategoryName()) . $block->escapeHtml(__(' Wishlist')) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    <?php if ($isAllowCustomerCreate && $categoryCollection->getSize() < $limitWishlist) : ?>
+                        <option value="new"
+                                class="option-new-wishlist"><?= $block->escapeHtml(__('New Wishlist')) ?></option>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <option value="all">All</option>
+                <?php endif; ?>
+            </select>
+        </label>
+        <div class="to-new-wishlist" style="display: none;margin: 0 0 20px">
+            <label for="new-category">New Wish List Name</label>
+            <input id="new-category" type="text" class="admin__control-text">
+            <div class="error-messages"></div>
+        </div>
+        <button id="mc-to-wishlist" type="button" class="action scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span><?= $block->escapeHtml(__('Save')) ?></span>
+        </button>
+        <button id="save-wishlist-category" type="button" style="display: none" class="action scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span><?= $block->escapeHtml(__('Save')) ?></span>
+        </button>
+        <button data-role="closeBtn" class="action- scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span><?= $block->escapeHtml(__('Cancel')) ?></span>
+        </button>
+    </div>
+    <div id="add-wishlist-after-notification" style="display: none">
+        <div class="row mpcss">
+            <div class="col-md-12 col-xs-12">
+                <div class="messages">
+
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="product-detail">
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <div class="continue">
+                    <button data-role="closeBtn" class="action- scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span><?= $block->escapeHtml(__('Continue Shopping')) ?></span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <div class="go-to-wishlist">
+                    <button class="action- scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span><?= $block->escapeHtml(__('Go To My Wishlist')) ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php if (!$this->getRequest()->getParam('mpquickview')) : ?>
+        <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Mageplaza_BetterWishlist/js/add-to-wishlist": {
+                        "loadCatUrl": "<?= /** @noEscape */
+                            $block->getUrl('mpwishlist/customer/loadcategory') ?>",
+                        "addToWishlistUrl": "<?= /** @noEscape */
+                            $block->getUrl('mpwishlist/customer/addtowishlist', ['_current' => true, 'form_key' => $block->getFormKey()]) ?>",
+                        "limitWishlist": <?= /** @noEscape */
+                            $limitWishlist ?>,
+                        "gotoWishlistUrl": "<?= /** @noEscape */
+                            $block->getUrl('wishlist/index') ?>"
+                    }
+                }
+            }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,35 @@
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Customize
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+
+<!--@subject {{trans " Customize Newsletter unsubscription success"}} @-->
+<!--@vars {
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+
+
+{{template config_path="design/email/header_template"}}
+
+<p>{{trans "We're sorry to see you go and will miss keeping you updated through our newsletter."}}</p>
+<p>{{trans "We appreciate your past engagement and hope you consider rejoining our newsletter in the future."}}</p>
+
+{{template config_path="design/email/footer_template"}}

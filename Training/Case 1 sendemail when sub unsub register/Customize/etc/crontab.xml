@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Customize
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="mpcustomize_cronjob_customer_register_success_send_email" instance="Mageplaza\Customize\Cron\RegisterSuccessCron" method="execute">
+            <config_path>mp_customize/cron_job/cron_schedule</config_path>
+        </job>
+        <job name="mpcustomize_cronjob_subscription_send_email" instance="Mageplaza\Customize\Cron\SubscriptionCron" method="execute">
+            <config_path>mp_customize/cron_job/cron_schedule</config_path>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="adminhtml_customer_save_after">
+        <observer name="MpRewardCustomerSaveAfter" instance="Mageplaza\RewardPoints\Observer\RewardCustomerSaveAfter"/>
+    </event>
+    <event name="mp_reward_earning_authorize_resource">
+        <observer name="MpRewardEarningAuthorize" instance="Mageplaza\RewardPoints\Observer\RewardEarningAuthorize"/>
+    </event>
+    <event name="mp_reward_spending_authorize_resource">
+        <observer name="MpRewardSpendingAuthorize" instance="Mageplaza\RewardPoints\Observer\RewardSpendingAuthorize"/>
+    </event>
+    <event name="adminhtml_sales_order_create_process_data">
+        <observer name="mp_reward_order_create_add" instance="Mageplaza\RewardPoints\Observer\OrderCreateProcessData"/>
+    </event>
+</config>

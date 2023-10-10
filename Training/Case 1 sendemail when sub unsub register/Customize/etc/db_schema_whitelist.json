@@ -1,0 +1,7 @@
+{
+    "customer_entity": {
+        "column": {
+            "mp_email_register_success_sent": true
+        }
+    }
+}

@@ -1,0 +1,83 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_RewardPoints
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/**@var \Mageplaza\RewardPoints\Block\Account\Dashboard\Exchange $block */
+if ($block->canDisplay()) :
+    $earningRate = $block->getEarningRate();
+    $spendingRate = $block->getSpendingRate();
+    ?>
+    <div class="block reward-information mp-clear">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Reward information')) ?></strong></div>
+        <div class="block-content">
+            <?php if ($earningRate || $spendingRate) : ?>
+                <div class="box box-exchange">
+                    <strong class="box-title">
+                        <span><?= $block->escapeHtml(__('Current exchange rates:')) ?></span>
+                    </strong>
+                    <div class="box-content">
+                        <?php if ($earningRate) : ?>
+                            <div class="earning-rate">
+                                <span>
+                                    <?= /** noEscape */ __(
+                                        'Each %1 spent for your order will earn %2.',
+                                        '<strong>' . $block->convertPrice($earningRate->getMoney()) . '</strong>',
+                                        '<strong>' . $block->formatPoint($earningRate->getPoints()) . '</strong>'
+                                    ) ?>
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($spendingRate) : ?>
+                            <div class="spending-rate">
+                                <span>
+                                    <?= /** noEscape */ __(
+                                        'Each %1 can be redeemed for %2.',
+                                        '<strong>' . $block->formatPoint($spendingRate->getPoints()) . '</strong>',
+                                        '<strong>' . $block->convertPrice($spendingRate->getMoney()) . '</strong>'
+                                    ) ?>
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ($maxPoints = $block->getMaxPointPerCustomer()) : ?>
+                <div class="box box-point-limit">
+                    <strong class="box-title">
+                        <span><?= $block->escapeHtml(__('Balance limitation:')) ?></span>
+                    </strong>
+                    <div class="box-content point">
+                        <span><?= $block->escapeHtml(__('Balance is limited at %1', $block->formatPoint($maxPoints))) ?></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ($expire = $block->getPointExpired()) : ?>
+                <div class="box box-point-expired">
+                    <strong class="box-title">
+                        <span><?= $block->escapeHtml(__('Day')) ?></span>
+                    </strong>
+                    <div class="box-content expired">
+                        <span><?= $block->escapeHtml(__('Each earned %1(s) record expires in %2', $block->getPointLabel(), $expire)) ?></span>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

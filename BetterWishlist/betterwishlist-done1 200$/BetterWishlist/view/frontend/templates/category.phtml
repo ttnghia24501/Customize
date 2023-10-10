@@ -1,0 +1,191 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+/* @var $block \Mageplaza\BetterWishlist\Block\Customer\Wishlist\Category */
+$block->reindex();
+$collection             = $block->getCategoryCollection();
+$defaultCollection      = $block->getDefaultCategoryCollection($block->getStoreId());
+$defaultCategory        = $block->getDefaultCategory();
+$isEnableMultiWishlist  = $block->isEnableMultiWishlist();
+$isAllowCustomerCreate  = $block->allowCustomerCreateWishlist();
+$limitWishlist          = $block->getLimitWishlist();
+$formKey                = $block->getFormKey();
+$categoryId             = $block->getRequest()->getParam('fromCategoryId');
+$isRemoveAfterAddToCart = $block->isRemoveAfterAddToCart();
+$isFontAwesomeEnabled   = $block->isFontAwesomeEnabled($block->getStoreId());
+?>
+<div class="mp-wishlist-category multiple-view admin__action-dropdown-wrap admin__data-grid-action-bookmarks">
+    <?php if ($isEnableMultiWishlist) : ?>
+        <input type="hidden" id="mp-wishlist-category-id" name="categoryId"
+               value="<?= $block->escapeHtmlAttr($defaultCategory->getId()) ?>">
+        <ul class="admin__action-dropdown-menu" style="list-style: none;">
+            <?php if ($block->isShowAllItem()) : ?>
+                <li id="all" class="un-remove-able all-item">
+                    <div class="action-dropdown-menu-item">
+                        <button type="button" class="action action-dropdown-menu-link">
+                            <span><?= $block->escapeHtml(__('All Items')) ?></span>
+                        </button>
+                    </div>
+                </li>
+            <?php endif; ?>
+            <?php foreach ($defaultCollection as $item) : ?>
+                <li id="<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                    class="un-remove-able<?= /** @noEscape */ $item->getDefault() ? ' primary' : '' ?>">
+                    <div class="action-dropdown-menu-item">
+                        <button type="button"
+                                class="action action-dropdown-menu-link<?= /** @noEscape */ $item->getDefault() ? ' default-category primary' : '' ?>">
+                            <span><?= $block->escapeHtml($item->getName()) ?></span>
+                        </button>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+            <?php foreach ($collection as $category) : ?>
+                <li class="li-action-dropdown-menu-item" id="<?= $block->escapeHtmlAttr($category->getCategoryId()) ?>">
+                    <div class="action-dropdown-menu-item-edit">
+                        <input class="admin__control-text" type="text" value="<?= $block->escapeHtml($category->getCategoryName()) ?>"
+                               placeholder="<?= $block->escapeHtml($category->getCategoryName()) ?>">
+                        <button class="action-submit" type="button" title="<?= $block->escapeHtmlAttr(__('Save')) ?>">
+                            <span data-bind="i18n: 'Submit'"><?= $block->escapeHtml(__('Submit')) ?></span>
+                        </button>
+                        <div class="action-dropdown-menu-item-actions">
+                            <button class="action-delete" type="button" title="<?= $block->escapeHtmlAttr(__('Delete')) ?>">
+                                <span data-bind="i18n: 'Delete'"><?= $block->escapeHtml(__('Delete')) ?></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="action-dropdown-menu-item">
+                        <button type="button" class="action-dropdown-menu-link action">
+                            <span><?= $block->escapeHtml($category->getCategoryName()) ?></span>
+                        </button>
+                        <div class="action-dropdown-menu-item-actions">
+                            <button class="action-edit" type="button" title="Edit">
+                                <span data-bind="i18n: 'Edit'"><?= $block->escapeHtml(__('Edit')) ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <?php if ($isAllowCustomerCreate) : ?>
+            <div class="action-dropdown-menu-action action-dropdown-menu-item-last">
+                <a id="save-view-as" href="#"></a>
+            </div>
+        <?php endif; ?>
+        <div class="error-messages">
+
+        </div>
+        <link rel="stylesheet" type="text/css" media="all"
+              href="<?= $block->escapeHtmlAttr($block->getViewFileUrl('Mageplaza_BetterWishlist::css/category.css')) ?>">
+        <?php if ($isFontAwesomeEnabled) : ?>
+            <link rel="stylesheet" type="text/css" media="all"
+                  href="<?= $block->escapeHtmlAttr($block->getViewFileUrl('Mageplaza_Core::css/font-awesome.min.css')) ?>">
+        <?php endif; ?>
+        <?php if ($block->versionCompare()) : ?>
+        <style>
+            .products-grid.wishlist .product-item-actions .action.copy.mp-wishlist-copy:before{
+                content: '\f0c5';
+            }
+            .products-grid.wishlist .product-item-actions .action.move:before,.products-grid.wishlist .product-item-actions .action.copy:before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 18px;
+                line-height: 20px;
+                color: #757575;
+                content: '\f0ea';
+                font-family: FontAwesome;
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: normal;
+                overflow: hidden;
+                speak: none;
+                text-align: center;
+            }
+            .products-grid.wishlist .product-item-actions .action.move > span, .products-grid.wishlist .product-item-actions .action.copy > span {
+                border: 0;
+                clip: rect(0, 0, 0, 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+        </style>
+        <?php endif; ?>
+    <?php else : ?>
+        <ul style="display: none;">
+            <li id="all" class="_active"></li>
+        </ul>
+        <input type="hidden" id="mp-wishlist-category-id" name="categoryId" value="all">
+    <?php endif; ?>
+</div>
+<!-- stop on submit form -->
+<button style="display: none" onclick="window.event.preventDefault();window.event.stopPropagation();return;"></button>
+<div class="clear-fix" style="clear: both"></div>
+<div id="category-select-modal" style="display: none">
+    <input id="action-type" type="hidden">
+    <input id="item-id" type="hidden">
+    <label style="display: block"><?= $block->escapeHtml(__('Select Wishlist ')) ?>
+        <select class="select admin__control-select"></select>
+    </label>
+    <?php if ($isAllowCustomerCreate) : ?>
+        <div class="to-new-wishlist" style="display: none;margin: 0 0 20px">
+            <label for="new-category"><?= $block->escapeHtml(__('New Wishlist Name')) ?></label>
+            <input id="new-category" type="text" class="admin__control-text">
+            <div class="error-messages"></div>
+        </div>
+    <?php endif; ?>
+    <button id="mc-to-wishlist" type="button"
+            class="action scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+        <span><?= $block->escapeHtml(__('Save')) ?></span>
+    </button>
+    <button data-role="closeBtn" type="button"
+            class="action- scalable save primary ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+        <span><?= $block->escapeHtml(__('Cancel')) ?></span>
+    </button>
+</div>
+<div class="mp-sharing-wishlist" style="display: none;">
+    <div class="messages"></div>
+    <?= $block->getChildHtml('wishlist_sharing') ?>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".mp-wishlist-category": {
+            "Mageplaza_BetterWishlist/js/category": {
+                "addToCartUrlDefault": "<?= /** @noEscape */ $block->getUrl('wishlist/index/cart') ?>",
+                "addToCartUrl": "<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/cart') ?>",
+                "updateCatUrl": "<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/category', ['form_key' => $formKey]) ?>",
+                "wishlistUrl": "<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/wishlist') ?>",
+                "shareWishlistUrl": "<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/send', ['_current' => true]) ?>",
+                "updateWishlistUrl": "<?= /** @noEscape */ $block->getUrl('mpwishlist/customer/update', ['form_key' => $block->getFormKey()]) ?>",
+                "limitWishlist": <?= /** @noEscape */ $limitWishlist ?>,
+                "isMultiple": <?= $isEnableMultiWishlist ? 'true' : 'false' ?>,
+                "isAllowCustomerCreate": <?= $isAllowCustomerCreate ? 'true' : 'false' ?>,
+                "form_key": "<?= /** @noEscape */ $block->getFormKey() ?>",
+                "activeCatId": "<?= /** @noEscape */ $categoryId ?>",
+                "isRemove": <?= $isRemoveAfterAddToCart ? 'true' : 'false' ?>,
+                "addAllToCartUrl":<?= /** @noEscape */ $block->getAddAllToCartParams(); ?>
+            }
+        }
+    }
+</script>
+

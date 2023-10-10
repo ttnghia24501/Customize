@@ -1,0 +1,37 @@
+<?php
+use Mageplaza\RewardPoints\Block\Email\Template;
+
+/** @var Template $block */
+
+$itemList = $block->getProductList();
+?>
+<table class="reward-table">
+    <thead>
+    <tr>
+        <th><?= $block->escapeHtml(__('Order')) ?></th>
+        <th><?= $block->escapeHtml(__('Product')) ?></th>
+        <th><?= $block->escapeHtml(__('Qty')) ?>
+        <th style="width: 26%"><?= $block->escapeHtml(__('Transaction amount (Points)')) ?>
+        <th style="width: 21%"><?= $block->escapeHtml(__('Current balance (Points)')) ?>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>#<?= $block->escapeHtml($block->getIncrementId())?></td>
+        <td>
+			<?php foreach ($itemList as $item): ?>
+				<?= $block->escapeHtml($item->getName()) ?>
+            <br/>
+			<?php endforeach; ?>
+        </td>
+        <td>
+			<?php foreach ($itemList as $item): ?>
+				<?= $block->escapeHtml(round($item->getQtyOrdered())) ?>
+            <br/>
+			<?php endforeach; ?>
+        </td>
+        <td><?= $block->escapeHtml($block->getPointAmount()) ?></td>
+        <td><?= $block->escapeHtml($block->getBalance()) ?></td>
+    </tr>
+    </tbody>
+</table>

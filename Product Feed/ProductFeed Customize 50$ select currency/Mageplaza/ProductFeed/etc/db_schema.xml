@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="mageplaza_productfeed_feed" resource="default" engine="innodb" comment="Product Feed Table">
+    <column xsi:type="int" name="feed_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Feed Id"/>
+    <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="false" identity="false" comment="Feed Status"/>
+    <column xsi:type="varchar" name="store_id" nullable="false" length="64" comment="Store"/>
+    <column xsi:type="varchar" name="file_name" nullable="false" length="255" comment="File Name"/>
+    <column xsi:type="varchar" name="file_type" nullable="false" length="64" comment="Feed Type"/>
+    <column xsi:type="mediumtext" name="template_html" nullable="true" comment="Template Html"/>
+    <column xsi:type="varchar" name="field_separate" nullable="true" length="64" comment="Field Separate"/>
+    <column xsi:type="varchar" name="field_around" nullable="true" length="64" comment="Field Around"/>
+    <column xsi:type="int" name="include_header" padding="11" unsigned="false" nullable="true" identity="false" comment="Include Field Header"/>
+    <column xsi:type="mediumtext" name="fields_map" nullable="true" comment="Field Map"/>
+    <column xsi:type="mediumtext" name="conditions_serialized" nullable="true" comment="Product Filter"/>
+    <column xsi:type="mediumtext" name="category_map" nullable="true" comment="Category Map"/>
+    <column xsi:type="varchar" name="execution_mode" nullable="true" length="64" comment="Execution Mode"/>
+    <column xsi:type="varchar" name="frequency" nullable="true" length="64" comment="Frequency"/>
+    <column xsi:type="varchar" name="cron_run_day_of_week" nullable="true" length="64" comment="Day of Week"/>
+    <column xsi:type="varchar" name="cron_run_day_of_month" nullable="true" length="64" comment="Day of Month"/>
+    <column xsi:type="varchar" name="cron_run_time" nullable="true" length="64" comment="Cron Run Time"/>
+    <column xsi:type="timestamp" name="last_cron" on_update="false" nullable="true" comment="Last Generated"/>
+    <column xsi:type="int" name="delivery_enable" padding="11" unsigned="false" nullable="true" identity="false" comment="Delivery Enable"/>
+    <column xsi:type="varchar" name="protocol" nullable="true" length="64" comment="Delivery Config: Protocol"/>
+    <column xsi:type="varchar" name="passive_mode" nullable="true" length="64" comment="Delivery Config: Passive Mode"/>
+    <column xsi:type="varchar" name="host_name" nullable="true" length="255" comment="Delivery Config: Host Name"/>
+    <column xsi:type="varchar" name="user_name" nullable="true" length="255" comment="Delivery Config: User Name"/>
+    <column xsi:type="varchar" name="password" nullable="true" length="255" comment="Delivery Config: Password"/>
+    <column xsi:type="varchar" name="directory_path" nullable="true" length="255" comment="Delivery Config: Directory Path"/>
+    <column xsi:type="varchar" name="campaign_source" nullable="true" length="255" comment="Google Analytics: Campaign Source"/>
+    <column xsi:type="varchar" name="campaign_medium" nullable="true" length="255" comment="Google Analytics: Campaign Medium"/>
+    <column xsi:type="varchar" name="campaign_name" nullable="true" length="255" comment="Google Analytics: Campaign Name"/>
+    <column xsi:type="varchar" name="campaign_term" nullable="true" length="255" comment="Google Analytics: Campaign Term"/>
+    <column xsi:type="varchar" name="campaign_content" nullable="true" length="255" comment="Google Analytics: Campaign Content"/>
+    <column xsi:type="timestamp" name="last_generated" on_update="false" nullable="true" comment="Last Generated"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Update At"/>
+    <column xsi:type="text" name="compress_file" nullable="true" comment="Compress File"/>
+    <column xsi:type="text" name="private_key_path" nullable="true" comment="Private Key File"/>
+    <column xsi:type="text" name="mapping" nullable="true" comment="Mapping"/>
+    <column xsi:type="text" name="preview_limit" nullable="true" comment="Preview Limit"/>
+    <column xsi:type="int" name="click" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Click"/>
+    <column xsi:type="int" name="impression" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Impression"/>
+    <column xsi:type="int" name="ctr" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="CTR"/>
+    <column xsi:type="text" name="request_url" nullable="true" comment="Request Url"/>
+    <column xsi:type="text" name="headers" nullable="true" comment="Headers"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="feed_id"/>
+    </constraint>
+  </table>
+  <table name="mageplaza_productfeed_defaulttemplate" resource="default" engine="innodb" comment="Default Template Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Template Id"/>
+    <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Template Name"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Template Title"/>
+    <column xsi:type="varchar" name="file_type" nullable="false" length="64" comment="Type"/>
+    <column xsi:type="mediumtext" name="template_html" nullable="true" comment="Template Html"/>
+    <column xsi:type="varchar" name="field_separate" nullable="true" length="64" comment="Field Separate"/>
+    <column xsi:type="varchar" name="field_around" nullable="true" length="64" comment="Field Around"/>
+    <column xsi:type="int" name="include_header" padding="11" unsigned="false" nullable="true" identity="false" comment="Include Field Header"/>
+    <column xsi:type="mediumtext" name="fields_map" nullable="true" comment="Field Map"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="mageplaza_productfeed_history" resource="default" engine="innodb" comment="Product Feed Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Log Id"/>
+    <column xsi:type="int" name="feed_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Feed Id"/>
+    <column xsi:type="varchar" name="feed_name" nullable="true" length="255" comment="Feed Name"/>
+    <column xsi:type="varchar" name="status" nullable="true" length="64" comment="Log Status"/>
+    <column xsi:type="varchar" name="delivery" nullable="true" length="64" comment="Delivery Status"/>
+    <column xsi:type="varchar" name="type" nullable="false" length="64" comment="Execution Type"/>
+    <column xsi:type="varchar" name="file" nullable="true" length="255" comment="File"/>
+    <column xsi:type="int" name="product_count" padding="11" unsigned="false" nullable="true" identity="false" comment="Product Count"/>
+    <column xsi:type="varchar" name="success_message" nullable="true" length="255" comment="Success Message"/>
+    <column xsi:type="varchar" name="error_message" nullable="true" length="255" comment="Error Message"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MAGEPLAZA_PRDFEED_HISTORY_FEED_ID_MAGEPLAZA_PRDFEED_FEED_FEED_ID" table="mageplaza_productfeed_history" column="feed_id" referenceTable="mageplaza_productfeed_feed" referenceColumn="feed_id" onDelete="CASCADE"/>
+    <index referenceId="MAGEPLAZA_PRODUCTFEED_HISTORY_FEED_ID" indexType="btree">
+      <column name="feed_id"/>
+    </index>
+  </table>
+  <table name="mageplaza_productfeed_reports" resource="default" engine="innodb" comment="ProductFeed Reports">
+    <column xsi:type="int" name="report_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Report Id"/>
+    <column xsi:type="int" name="feed_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Feed Id"/>
+    <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order ID"/>
+    <column xsi:type="decimal" name="ordered_quantity" scale="4" precision="12" unsigned="false" nullable="true" comment="Ordered Quantity"/>
+    <column xsi:type="decimal" name="revenue" scale="4" precision="20" unsigned="false" nullable="true" comment="Revenue"/>
+    <column xsi:type="decimal" name="refunded" scale="4" precision="20" unsigned="false" nullable="true" comment="Refunded"/>
+    <column xsi:type="decimal" name="discount" scale="4" precision="20" unsigned="false" nullable="true" comment="Discount"/>
+    <column xsi:type="decimal" name="tax" scale="4" precision="20" unsigned="false" nullable="true" comment="Tax"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="report_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MAGEPLAZA_PRDFEED_REPORTS_FEED_ID_MAGEPLAZA_PRDFEED_FEED_FEED_ID" table="mageplaza_productfeed_reports" column="feed_id" referenceTable="mageplaza_productfeed_feed" referenceColumn="feed_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="MAGEPLAZA_PRODUCTFEED_REPORTS_ORDER_ID_SALES_ORDER_ENTITY_ID" table="mageplaza_productfeed_reports" column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE"/>
+  </table>
+  <table name="sales_order_item" resource="sales" engine="innodb" comment="Sales Flat Order Item">
+    <column xsi:type="text" name="mp_productfeed_key" nullable="true" comment="Mp Productfeed Key"/>
+  </table>
+</schema>

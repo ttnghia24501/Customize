@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_ProductFeed
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Mageplaza_ProductFeed::css/lib/codemirror.css"/>
+        <css src="Mageplaza_ProductFeed::css/form/edit-feed.css"/>
+        <css src="Mageplaza_Core::css/font-awesome.min.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit" name="mageplaza_productfeed_feed_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tabs" name="mageplaza_productfeed_feed_tabs">
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\General" name="mageplaza_productfeed_feed_tab_general"/>
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\GoogleAnalytics" name="mageplaza_productfeed_feed_tab_ga"/>
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\Conditions" name="mageplaza_productfeed_feed_tab_product_filter">
+                    <block class="Magento\Backend\Block\Template" name="product_filter_condition" template="Mageplaza_ProductFeed::feed/product_filter/conditions.phtml"/>
+                </block>
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\Template" name="mageplaza_productfeed_feed_tab_template"/>
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\GoogleShoppingApi" name="mageplaza_productfeed_feed_tab_google_shopping_api"/>
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\Delivery" name="mageplaza_productfeed_feed_tab_delivery"/>
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\History" name="mageplaza_productfeed_feed_tab_history"/>
+                <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\CategoryMapping" name="mageplaza_productfeed_feed_tab_category_map">
+                    <block class="Mageplaza\ProductFeed\Block\Adminhtml\Feed\Edit\Tab\Renderer\CategoryMap" name="category_map"/>
+                </block>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">feed</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_general</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">template</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_template</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">google_shopping_api</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_google_shopping_api</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">google_analytics</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_ga</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">product_filter</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_product_filter</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">category_map</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_category_map</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">delivery</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_delivery</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">history</argument>
+                    <argument name="block" xsi:type="string">mageplaza_productfeed_feed_tab_history</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block class="Magento\Backend\Block\Template" name="attribute_edit_js" template="Mageplaza_ProductFeed::feed/delivery/js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

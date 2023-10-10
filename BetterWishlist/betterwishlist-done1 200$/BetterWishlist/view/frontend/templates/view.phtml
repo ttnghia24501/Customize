@@ -1,0 +1,88 @@
+<?php
+
+use Magento\Wishlist\Helper\Data;
+
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_BetterWishlist
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+// @codingStandardsIgnoreFile
+
+/* @var $block \Magento\Wishlist\Block\Customer\Wishlist */
+?>
+
+<?php if ($this->helper(Data::class)->isAllow()) : ?>
+    <div class="toolbar wishlist-toolbar"><?= $block->getChildHtml('wishlist_item_pager'); ?>
+    </div>
+    <?php echo($block->getChildHtml('wishlist.rss.link')); ?>
+    <form class="form-wishlist-items mp-wishlist-form" id="wishlist-view-form"
+          data-mage-init='{"wishlist":{
+          "addToCartUrl":<?php /* @escapeNotVerified */
+          echo $block->getItemAddToCartParams("%item%"); ?>,
+          "addAllToCartUrl":<?php /* @escapeNotVerified */
+          echo $block->getAddAllToCartParams(); ?>,
+          "commentString":""},
+          "validation": {}}' action="<?php /* @escapeNotVerified */
+    echo $block->getUrl('wishlist/index/update', ['wishlist_id' => $block->getWishlistInstance()->getId()]) ?>"
+          method="post">
+        <?php echo $block->getChildHtml('top'); ?>
+        <?php echo $block->getChildHtml('mp.wishlist.category'); ?>
+        <?php echo $block->getBlockHtml('formkey'); ?>
+        <?php
+            $wishlistItems = $block->getWishlistItems();
+            $sort = $block->getRequest()->getParam('sort');
+            if ($sort === 'name-asc') {
+                $block->getChildBlock('items')->setItems($wishlistItems->setOrderByProductName('ASC'));
+            } elseif ($sort === 'name-desc') {
+                $block->getChildBlock('items')->setItems($wishlistItems->setOrderByProductName('DESC'));
+            } elseif ($sort === null || $sort === 'default') {
+                $block->getChildBlock('items')->setItems($wishlistItems);
+            }
+        ?>
+        <?php echo $block->getChildHtml('items'); ?>
+        <?php echo $block->getChildHtml('bottom'); ?>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <?php echo $block->getChildHtml('control_buttons'); ?>
+            </div>
+            <div class="secondary">
+                <a href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>" class="action back">
+                    <span><?php /* @escapeNotVerified */
+                        echo __('Back') ?></span>
+                </a>
+            </div>
+        </div>
+    </form>
+    <script id="form-tmpl" type="text/x-magento-template">
+        <form id="wishlist-hidden-form" method="post" action="<%- data.url %>" class="no-display">
+            <% if (data.qty) { %>
+            <input name="qty" value="<%- data.qty %>">
+            <% } %>
+
+            <% if (data.item) { %>
+            <input name="item" value="<%- data.item %>">
+            <% } %>
+
+            <% if (data.entity) { %>
+            <input name="entity" value="<%- data.entity %>">
+            <% } %>
+        </form>
+    </script>
+    <div class="toolbar wishlist-toolbar"><br><?= $block->getChildHtml('wishlist_item_pager'); ?></div>
+<?php endif ?>

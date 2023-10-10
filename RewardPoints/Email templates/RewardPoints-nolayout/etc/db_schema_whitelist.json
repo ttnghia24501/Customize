@@ -1,0 +1,136 @@
+{
+    "mageplaza_reward_rate": {
+        "column": {
+            "rate_id": true,
+            "website_ids": true,
+            "customer_group_ids": true,
+            "direction": true,
+            "points": true,
+            "money": true,
+            "priority": true,
+            "min_point": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageplaza_reward_customer": {
+        "column": {
+            "reward_id": true,
+            "customer_id": true,
+            "point_balance": true,
+            "point_spent": true,
+            "notification_update": true,
+            "notification_expire": true,
+            "is_active": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGEPLAZA_REWARD_CUSTOMER_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    },
+    "mageplaza_reward_transaction": {
+        "column": {
+            "transaction_id": true,
+            "reward_id": true,
+            "customer_id": true,
+            "action_code": true,
+            "action_type": true,
+            "store_id": true,
+            "point_amount": true,
+            "status": true,
+            "order_id": true,
+            "created_at": true,
+            "expiration_date": true,
+            "expire_email_sent": true,
+            "extra_content": true,
+            "point_remaining": true,
+            "point_used": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_5CB8BA1EB9580D5BC758016B3EE54969": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true
+        }
+    },
+    "customer_grid_flat": {
+        "column": {
+            "mp_point_balance": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true,
+            "mp_reward_discount": true,
+            "mp_reward_base_discount": true,
+            "mp_reward_shipping_earn": true,
+            "mp_reward_shipping_spent": true,
+            "mp_reward_shipping_discount": true,
+            "mp_reward_shipping_base_discount": true,
+            "mp_reward_earn_after_invoice": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true,
+            "mp_reward_discount": true,
+            "mp_reward_base_discount": true
+        }
+    },
+    "sales_invoice": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true,
+            "mp_reward_discount": true,
+            "mp_reward_base_discount": true,
+            "mp_reward_shipping_earn": true,
+            "mp_reward_shipping_spent": true,
+            "mp_reward_shipping_discount": true,
+            "mp_reward_shipping_base_discount": true
+        }
+    },
+    "sales_invoice_item": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true,
+            "mp_reward_discount": true,
+            "mp_reward_base_discount": true
+        }
+    },
+    "sales_creditmemo": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true,
+            "mp_reward_discount": true,
+            "mp_reward_base_discount": true,
+            "mp_reward_shipping_earn": true,
+            "mp_reward_shipping_spent": true,
+            "mp_reward_shipping_discount": true,
+            "mp_reward_shipping_base_discount": true
+        }
+    },
+    "sales_creditmemo_item": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true,
+            "mp_reward_discount": true,
+            "mp_reward_base_discount": true
+        }
+    },
+    "quote": {
+        "column": {
+            "mp_reward_earn": true,
+            "mp_reward_spent": true,
+            "mp_reward_discount": true,
+            "mp_reward_base_discount": true,
+            "mp_reward_applied": true
+        }
+    }
+}
